@@ -1,1 +1,5 @@
 @import "tailwindcss";
+
+.react-icons {
+  vertical-align: middle;
+}
