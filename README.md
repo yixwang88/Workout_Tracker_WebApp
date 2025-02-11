@@ -35,4 +35,7 @@ Ctrl + click or run the applicaiton on localhost:(provided port)
 | /add-workout | Area to add a new workout with specific exercises |
 | /login | login page |
 
+## Team Info
+Figma: https://www.figma.com/design/Xg97HdIFJyuHGjPzxarTbw/Pixel-Panthers?node-id=0-1&t=3veIBDEyMVgqMgRN-1
+Notion: https://www.notion.so/1810e20b02c18162be0fc6f285ba2837?v=1810e20b02c1814abfea000cb7f79665&pvs=4
 
