@@ -1,14 +1,11 @@
 import React from "react"
-<<<<<<< HEAD
 import ContactPageHeader from "./ContactPageHeader/ContactPageHeader.jsx"
 import Footer from "./Footer/Footer.jsx"
-=======
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaDumbbell } from "react-icons/fa6";
 import { TbTreadmill } from "react-icons/tb";
 import { LuBicepsFlexed } from "react-icons/lu";
 
->>>>>>> origin/homepage
 function Homepage() {
 
   const detailCards = [
@@ -54,10 +51,6 @@ function Homepage() {
 
   return (
     <div>
-<<<<<<< HEAD
-      <ContactPageHeader/>
-      <Footer/>
-=======
       <div className="flex items-center text-white h-[500px] bg-cover bg-no-repeat bg-center" style={{backgroundImage: "url(/homepage/header.jpg"}}>
         <div className="w-[87.5%] m-auto flex flex-col gap-5">
           <h1 className="text-7xl font-bold">Think Less,</h1>
@@ -102,7 +95,8 @@ function Homepage() {
             </div>))}
         </ul>
       </div>
->>>>>>> origin/homepage
+      <ContactPageHeader/>
+      <Footer/>
     </div>
   )
 }
