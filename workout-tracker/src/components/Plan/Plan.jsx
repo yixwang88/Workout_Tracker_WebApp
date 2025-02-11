@@ -1,6 +1,11 @@
+import Planner from "./Planner";
+import TopBar from "./TopBar";
+
 const Plan = function() {
     return (
-    <div className="flex box-border h-full flex-col grow bg-[#FAFAFA]">
+    <div className="flex gap-4 box-border h-screen flex-col grow bg-[#FAFAFA] p-10">
+        <TopBar />
+        <Planner />
     </div>
     )
 }
