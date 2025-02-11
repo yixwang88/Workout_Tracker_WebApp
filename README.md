@@ -31,7 +31,7 @@ Ctrl + click or run the applicaiton on localhost:(provided port)
 | / | Home page |
 | /plan | Calendar view of workout plan |
 | /stats | ***Implementation pending based on time***  |
-| /exercises | List of saved/suggested exercises | 
+| /exercise | List of saved/suggested exercises | 
 | /add-workout | Area to add a new workout with specific exercises |
 | /login | login page |
 
