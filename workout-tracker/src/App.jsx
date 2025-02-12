@@ -5,17 +5,26 @@ import LoginPage from "./components/LoginPage/LoginPage"
 import Homepage from "./components/Homepage/Homepage"
 import Plan from "./components/Plan/Plan.jsx"
 import ExercisePlan from './components/ExercisePage/ExercisePage.jsx'
+import WorkoutPage from "./components/WorkoutPage/WorkoutPage.jsx"
 
 function App() {
 
   return (
     <>
-      <Routes>
+      <ul>
+        <li>
+          <Navbar />
+        </li>
+        <li>
+          <WorkoutPage />
+        </li>
+      </ul>
+      {/* <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/plan' element={<Plan/>}/>
         <Route path='/exercise' element={<ExercisePlan/>}/>
-      </Routes>
+      </Routes> */}
     </>
   );
 }
