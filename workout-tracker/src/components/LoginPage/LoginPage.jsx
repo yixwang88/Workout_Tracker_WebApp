@@ -3,7 +3,7 @@ import './LoginPage.css'
 
 function LoginPage() {
   return (
-    <div>
+    <div className="loginPage">
       <meta charSet="UTF-8" />
       <title> Login and Registration Form in HTML &amp; CSS | CodingLab </title>
       <link rel="stylesheet" href="style.css" />
