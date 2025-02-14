@@ -175,7 +175,7 @@ const WorkoutPage = () => {
                     {/* Add another exercise */}
                     <div className="add-exercise">
                         { /* TODO: Add onClick functionality */}
-                        <button className="btn1" onClick={() => addExercise(activeExercise)}>+ Add another exercise</button>
+                        <button className="btn1" onClick={() => addExercise(activeExercise)}>+ Add exercise</button>
                     </div>
 
                     {/* Buttons */}
