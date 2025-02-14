@@ -3,12 +3,12 @@ import { CiCirclePlus } from "react-icons/ci";
 import { GiWeightLiftingUp } from "react-icons/gi";
 import { Link } from 'react-router-dom';
 
-function Navbar() {
+function Navbar({homepage}) {
 
   const navigationLinks = [
     {
       name: 'Home',
-      routerLink: '' 
+      routerLink: '/' 
     },
     {
       name: 'Plan',
@@ -21,15 +21,19 @@ function Navbar() {
     {
       name: 'Exercises',
       routerLink: '/exercise' 
-    },
+    }, !homepage ?
     {
       name: 'Login',
-      routerLink: '/login' 
-    },
-  ]
-  const AddWorkoutLink = {
-      name: 'Add Workout',
-      routerLink: '/add-workout'
+      routerLink: '/login'
+    } : null
+    
+  ].filter(Boolean);
+  const AddWorkoutLink = homepage ? { 
+    name: 'Login',
+    routerLink: '/login'
+  } : { 
+    name: 'Add Workout',
+    routerLink: '/add-workout'
   }
   return (
     <div className="sticky top-0 bg-white">
@@ -47,9 +51,8 @@ function Navbar() {
         <Link to={AddWorkoutLink.routerLink}>
 
         <div className="flex items-center gap-3 hover:cursor-pointer bg-neutral-800 text-white p-2 pr-4 rounded-lg">
-            <CiCirclePlus className="w-8 h-8" color="white"/>
-          
-          Add Workout
+          <CiCirclePlus className="w-8 h-8" color="white"/>
+          {homepage ? "Login" : "Add Workout"}
         </div>
         </Link>
 
