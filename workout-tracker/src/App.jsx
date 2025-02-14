@@ -5,6 +5,7 @@ import LoginPage from "./components/LoginPage/LoginPage"
 import Homepage from "./components/Homepage/Homepage"
 import Plan from "./components/Plan/Plan.jsx"
 import ExercisePlan from './components/ExercisePage/ExercisePage.jsx'
+import WorkoutPage from "./components/WorkoutPage/WorkoutPage.jsx"
 
 function App() {
 
