@@ -11,20 +11,13 @@ function App() {
 
   return (
     <>
-      <ul>
-        <li>
-          <Navbar />
-        </li>
-        <li>
-          <WorkoutPage />
-        </li>
-      </ul>
-      {/* <Routes>
+      <Navbar />
+      <Routes>
         <Route path='/' element={<Homepage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/plan' element={<Plan/>}/>
         <Route path='/exercise' element={<ExercisePlan/>}/>
-      </Routes> */}
+      </Routes>
     </>
   );
 }
