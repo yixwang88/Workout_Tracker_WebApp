@@ -27,7 +27,10 @@ function Navbar() {
       routerLink: '/login' 
     },
   ]
-
+  const AddWorkoutLink = {
+      name: 'Add Workout',
+      routerLink: '/add-workout'
+  }
   return (
     <div className="sticky top-0 bg-white">
       <div className="flex items-center justify-around max-w-7xl py-4 m-auto">
@@ -41,10 +44,15 @@ function Navbar() {
               </li>
             </Link>))}
         </ul>
+        <Link to={AddWorkoutLink.routerLink}>
+
         <div className="flex items-center gap-3 hover:cursor-pointer bg-neutral-800 text-white p-2 pr-4 rounded-lg">
-          <CiCirclePlus className="w-8 h-8" color="white"/>
+            <CiCirclePlus className="w-8 h-8" color="white"/>
+          
           Add Workout
         </div>
+        </Link>
+
       </div>
     </div>
   );
