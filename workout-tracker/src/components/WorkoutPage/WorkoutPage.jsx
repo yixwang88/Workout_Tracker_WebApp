@@ -74,7 +74,7 @@ const WorkoutPage = () => {
     }
 
     return (
-        <div className="workout-page relative">
+        <div className="workout-page relative flex flex-col items-center">
             <button className="btn1 basis-1/2" onClick={() => setWorkout(workout1)}>Populate Workout</button>
             <button className="btn1 py-32" onClick={() => setShowPopup(true)}>Open Popup</button>
             <Popup className="relative z-0" trigger={showPopup} setTrigger={setShowPopup}>
