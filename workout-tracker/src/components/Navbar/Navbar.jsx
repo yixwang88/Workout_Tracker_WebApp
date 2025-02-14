@@ -23,9 +23,13 @@ function Navbar() {
       routerLink: '/exercise' 
     },
     {
+      name: 'Workouts',
+      routerLink: '/workouts'
+    },
+    {
       name: 'Login',
       routerLink: '/login' 
-    },
+    }
   ]
 
   return (
