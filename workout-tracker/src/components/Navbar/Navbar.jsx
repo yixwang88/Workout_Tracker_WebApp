@@ -38,9 +38,8 @@ function Navbar() {
         <GiWeightLiftingUp className="w-12 h-12" />
         <ul className="flex gap-10">
           {navigationLinks.map((link) => (
-            <Link to={link.routerLink}>
-              <li className="px-6 py-2 hover:cursor-pointer font-semibold"
-                  key={link.name}>
+            <Link to={link.routerLink} key={link.name}>
+              <li className="px-6 py-2 hover:cursor-pointer font-semibold">
                   {link.name}
               </li>
             </Link>))}
