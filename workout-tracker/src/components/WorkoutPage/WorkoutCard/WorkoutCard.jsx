@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types"
+import editIcon from "./edit_icon.png"
 import "./WorkoutCard.css"
 
 const workout1 = [
@@ -35,21 +36,41 @@ const workout1 = [
 
 
 
-function WorkoutCard({workout, name }) {
+function WorkoutCard({ workout, name, id }) {
+
+    const editWorkout = (id) => {
+        console.log(`edit ${id} workout.`);
+    }
+
+    const deleteWorkout = (id) => {
+        console.log(`delete ${id} workout.`);
+    }
 
     return (
-        <div className="container">
-            <h1 className="">{name}</h1>
+        <div className="workout-card">
+            <div className="flex justify-center items-center gap-2">
+                <h1 className="center basis">{name}</h1>
+                <button className="btn1" onClick={() => editWorkout(id)}>
+                    <img src={editIcon} alt="edit" className="icon" />
+                </button>
+                <button className="btn2" onClick={() => deleteWorkout(id)}>x</button>
+
+            </div>
             {workout.map((exercise, index) => (
-                <li key={exercise.name} className="exercise-card">
-                    <div className="container clickable-card">
+                <li key={exercise.name} className="exercise-card no-bullets">
+                    <div className="container clickable-card min-w-[250px]">
                         <div className="flex">
-                            <div className="basis-1/16">
+                            <div className="basis-2/16 flex items-center justify-center">
                                 <h1 className="text-[20px] font-bold">{index + 1}</h1>
                             </div>
-                            <div>
+                            <div className="basis-14/16">
                                 <b>{exercise.name}</b>
-                                <p>{exercise.sets + " sets of " + exercise.reps + " starting at " + exercise.weight}</p>
+                                <div className="flex gap-2">
+                                    <p className="basis-3/8">{`Sets: ${exercise.sets}`}</p>
+                                    <p className="basis-4/8">{`Reps: ${exercise.reps}`}</p>
+
+                                </div>
+                                <p>{"Starting at " + exercise.weight}</p>
                             </div>
                         </div>
                     </div>
@@ -70,6 +91,7 @@ WorkoutCard.propTypes = {
         })
     ).isRequired,
     name: PropTypes.string.isRequired,
+    id: PropTypes.number,
 };
 
 export default WorkoutCard;

@@ -4,11 +4,12 @@ import Popup from "./AddWorkoutModal";
 import { useRef, useState } from "react";
 import AddWorkoutModal from "./AddWorkoutModal";
 import WorkoutCard from "./WorkoutCard/WorkoutCard";
-import WorkoutList from "./WorkoutList/WorkoutList" 
+import WorkoutList from "./WorkoutList/WorkoutList"
 
 
-const workout1 = [
+const workouts = [
     {
+        id: 1,
         name: "Workout 1",
         list:
             [
@@ -43,6 +44,7 @@ const workout1 = [
             ]
     },
     {
+        id: 2,
         name: "Workout 2",
         list:
             [
@@ -77,6 +79,7 @@ const workout1 = [
             ]
     },
     {
+        id: 3,
         name: "Workout 3",
         list:
             [
@@ -125,7 +128,7 @@ const WorkoutPage = () => {
             <button className="btn1 basis-1/2" onClick={() => setWorkout(workout1)}>Populate Workout</button>
             <button className="btn1 py-32" onClick={() => setModalIsOpen(true)}>Open Popup</button>
 
-            <WorkoutList workoutList={workout1[0]}/>
+            <WorkoutList workoutList={workouts} />
 
             <AddWorkoutModal
                 modalIsOpen={modalIsOpen}
