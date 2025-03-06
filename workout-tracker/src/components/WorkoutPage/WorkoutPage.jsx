@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import AddWorkoutModal from "./AddWorkoutModal";
 import WorkoutCard from "./WorkoutCard/WorkoutCard";
 import WorkoutList from "./WorkoutList/WorkoutList"
+import Navbar from "../Navbar/Navbar";
 
 
 const workouts = [
@@ -124,18 +125,21 @@ const WorkoutPage = () => {
     const [workout, setWorkout] = useState([]);
 
     return (
-        <div className="workout-page relative flex flex-col items-center gap-2">
-            <button className="btn1 basis-1/2" onClick={() => setWorkout(workout1)}>Populate Workout</button>
-            <button className="btn1 py-32" onClick={() => setModalIsOpen(true)}>Open Popup</button>
+        <>
+            <Navbar homepage={false} />
+            <div className="workout-page relative flex flex-col items-center gap-2">
+                <button className="btn1 basis-1/2" onClick={() => setWorkout(workouts)}>Populate Workout</button>
+                <button className="btn1 py-32" onClick={() => setModalIsOpen(true)}>Open Popup</button>
 
-            <WorkoutList workoutList={workouts} />
+                <WorkoutList workoutList={workouts} />
 
-            <AddWorkoutModal
-                modalIsOpen={modalIsOpen}
-                onClose={() => setModalIsOpen(false)}
-                onSave={(data) => setWorkout([...workout, data])}
-            />
-        </div>
+                <AddWorkoutModal
+                    modalIsOpen={modalIsOpen}
+                    onClose={() => setModalIsOpen(false)}
+                    onSave={(data) => setWorkout([...workout, data])}
+                />
+            </div>
+        </>
     );
 };
 
