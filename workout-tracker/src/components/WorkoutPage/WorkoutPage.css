@@ -4,6 +4,7 @@
     --Btn2: rgb(49, 49, 49);
     --Btn2Hover: rgb(0, 0, 0);
     --lightText: #797979;
+    --bgdtitle: #707070;
 }
 
 .workout-page {
@@ -15,18 +16,30 @@
     width: 100%;
 }
 
+.workout-page .banner {
+    color: white;
+    width: 100%;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 20px 0px;
+    background-color: var(--bgdtitle);
+
+}
+
 .workout-page .border {
     border: 1px solid var(--lightText);
 }
 
 .workout-page .btn1 {
     font-size: medium;
-    color:black;
+    color:white;
     padding: 12px 24px;
-    background-color: var(--Btn1);
+    background-color: var(--bgdtitle);
     border-style: solid;
     border-radius: 10px;
     border: 1px solid var(--lightText);
+    cursor: pointer;
     &:hover {
         background-color: var(--Btn1Hover);
     }
@@ -40,8 +53,25 @@
     border-style: solid;
     border-radius: 10px;
     box-shadow: 0px 2px 2px lightgray;
+    cursor: pointer;
     &:hover {
         background-color: var(--Btn2Hover);
+    }
+}
+
+.workout-page .btn3 {
+    font-size: medium;
+    color: var(--bgdtitle);
+    padding: 12px 24px;
+    position: absolute;
+    right: 10px;
+    background-color: var(--Btn1);
+    border-style: solid;
+    border-radius: 10px;
+    border: 1px solid var(--lightText);
+    cursor: pointer;
+    &:hover {
+        background-color: var(--Btn1Hover);
     }
 }
 

@@ -9,6 +9,17 @@ import Modal from "react-modal"
 
 Modal.setAppElement("#modal-root");
 
+const modalStyle = {
+    overlay: {
+        backgroundColor: "rgba(56, 56, 56, 0.9)",
+    },
+    content: {
+        position: "absolute",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+    },
+};
 
 const addWorkoutSchema = z.object({
     name: z.string({ message: "Exercise name is required." }).min(1, { message: "Exercise name is required." }),
@@ -51,8 +62,8 @@ const AddWorkoutModal = ({ modalIsOpen, onClose, onSave }) => {
     }
 
     return (
-        <div>
-            <Modal className="relative z-0" isOpen={modalIsOpen} onRequestClose={onClose}>
+        <div className="workout-modal flex items-center" >
+            <Modal className="workout-modal relative z-0" isOpen={modalIsOpen} style={modalStyle} onRequestClose={onClose}>
                 <div className="container flex-none basis-1/3">
                     {/* Workout header */}
                     <div className="pop-up-info">

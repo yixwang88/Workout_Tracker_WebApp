@@ -1,8 +1,8 @@
 
 import "./WorkoutPage.css";
-import Popup from "./AddWorkoutModal";
+import Popup from "./AddWorkoutModal/AddWorkoutModal";
 import { useRef, useState } from "react";
-import AddWorkoutModal from "./AddWorkoutModal";
+import AddWorkoutModal from "./AddWorkoutModal/AddWorkoutModal";
 import WorkoutCard from "./WorkoutCard/WorkoutCard";
 import WorkoutList from "./WorkoutList/WorkoutList"
 import Navbar from "../Navbar/Navbar";
@@ -122,21 +122,26 @@ const WorkoutPage = () => {
     // A workout is a list of exercises
     const [workoutList, setWorkoutList] = useState([{}]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [workout, setWorkout] = useState([]);
+    const [activeWorkout, setActiveWorkout] = useState([]);
+
 
     return (
         <>
             <Navbar homepage={false} />
             <div className="workout-page relative flex flex-col items-center gap-2">
-                <button className="btn1 basis-1/2" onClick={() => setWorkout(workouts)}>Populate Workout</button>
-                <button className="btn1 py-32" onClick={() => setModalIsOpen(true)}>Open Popup</button>
+                <div className="banner flex items-center justify-center relative">
+
+                    <h1 className="">Your Workouts</h1>
+                    <button className="btn3" onClick={() => setModalIsOpen(true)}>New Workout</button>
+                </div>
+                <button className="btn1 basis-1/2" onClick={() => setActiveWorkout(workouts)}>Populate Workout</button>
 
                 <WorkoutList workoutList={workouts} />
 
                 <AddWorkoutModal
                     modalIsOpen={modalIsOpen}
                     onClose={() => setModalIsOpen(false)}
-                    onSave={(data) => setWorkout([...workout, data])}
+                    onSave={(data) => setActiveWorkout([...activeWorkout, data])}
                 />
             </div>
         </>
