@@ -44,14 +44,14 @@ app.post('/api/login', async (req, res) => {
   if (!isMatch) {
     return res.status(401).json({message: "Invalid credentials"})
   }
-  const accessToken = jwt.sign(
-    {email},
-    process.env.JWT_SECRET,
-    {expiresIn: "1h"}
-  )
+  // const accessToken = jwt.sign(
+  //   {email},
+  //   process.env.JWT_SECRET,
+  //   {expiresIn: "1h"}
+  // )
   return res.status(200).json({
     message: "Login successful.",
-    token: accessToken,
+    // token: accessToken,
     user
   })
 })
