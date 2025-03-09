@@ -71,8 +71,8 @@ function Homepage() {
           <p className="text-center mt-4 mb-20">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil iusto velit provident doloribus quidem, dolorem asperiores, voluptas quos nam tempora sequi, aliquid nemo officia dicta soluta molestias eaque. Odit, porro.</p>
           <div className="grid grid-cols-[2fr_1fr]">
             <ul className="flex flex-wrap">
-              {detailCards.map((card) => (
-                <div className="w-1/2 flex flex-col gap-2 flex-none p-5">
+              {detailCards.map((card, i) => (
+                <div className="w-1/2 flex flex-col gap-2 flex-none p-5" key={i}>
                   <div className="flex items-center justify-center rounded-full bg-stone-100 w-10 h-10">
                     {card.icon}
                   </div>
@@ -90,8 +90,8 @@ function Homepage() {
           <h2 className="text-5xl font-semibold text-center">Our Programs</h2>
           <p className="text-center mt-4 mb-20">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil iusto velit provident doloribus quidem, dolorem asperiores, voluptas quos nam tempora sequi, aliquid nemo officia dicta soluta molestias eaque. Odit, porro.</p>
           <ul className="grid grid-cols-[1fr_1fr_1fr] gap-4">
-            {programCards.map((card) => (
-              <div className="flex flex-col gap-2">
+            {programCards.map((card, i) => (
+              <div className="flex flex-col gap-2" key={i}>
                 <img src={card.imgSrc} className="h-[400px] object-cover" />
                 <h3 className="text-xl font-semibold">{card.title}</h3>
                 <p className="text-stone-500">{card.text}</p>

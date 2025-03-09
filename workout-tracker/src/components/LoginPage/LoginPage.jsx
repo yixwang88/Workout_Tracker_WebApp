@@ -68,7 +68,7 @@ function LoginPage() {
       if (res.ok) {
         dispatch(login(resData.user))
         toast.success("Login successful!")
-        navigate('/account')
+        navigate('/plan')
       } else {
         toast.error(resData.message)
       }
