@@ -1,6 +1,5 @@
 import React from "react";
 import { FaArrowRight } from "react-icons/fa";
-import Navbar from "../Navbar/Navbar";
 
 const exercises = [
   {
@@ -33,7 +32,6 @@ const exercises = [
 const ExercisePage = () => {
   return (
     <>
-      <Navbar homepage={false}/>
       <div className="min-h-screen bg-gray-100">
         {/* White Background for Content */}
         <div className="bg-white py-10">

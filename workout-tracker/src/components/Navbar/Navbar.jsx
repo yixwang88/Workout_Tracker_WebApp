@@ -1,13 +1,12 @@
 import React from "react";
-import { CiCirclePlus } from "react-icons/ci";
-import { GiWeightLiftingUp } from "react-icons/gi";
+import lift from './lift.png'
 import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
 
-function Navbar({homepage}) {
+function Navbar() {
 
   const { user } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
@@ -37,15 +36,11 @@ function Navbar({homepage}) {
       routerLink: '/plan' 
     },
     {
-      name: 'Stats',
-      routerLink: '' 
-    },
-    {
       name: 'Exercises',
       routerLink: '/exercise' 
     },
     {
-      name: 'Add Workout',
+      name: 'Workouts',
       routerLink: '/add-workout'
     }
   ]
@@ -53,7 +48,11 @@ function Navbar({homepage}) {
   return (
     <div className="sticky top-0 bg-white">
       <div className="flex items-center justify-around max-w-7xl py-4 m-auto">
-        <GiWeightLiftingUp className="w-12 h-12" />
+        <img
+          className="shrink-0 w-[59px] h-[52px] relative"
+          style={{ objectFit: "cover" }}
+          src={lift}
+        />
         <ul className="flex gap-10">
           {navigationLinks.map((link) => (
             <Link to={link.routerLink} key={link.name}>

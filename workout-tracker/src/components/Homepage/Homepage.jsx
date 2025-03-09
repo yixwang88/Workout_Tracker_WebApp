@@ -1,64 +1,54 @@
 import React from "react"
-import ContactPageHeader from "./ContactPageHeader/ContactPageHeader.jsx"
-import Footer from "./Footer/Footer.jsx"
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaDumbbell } from "react-icons/fa6";
 import { TbTreadmill } from "react-icons/tb";
-import { LuBicepsFlexed } from "react-icons/lu";
-import Navbar from "../Navbar/Navbar.jsx";
 
 function Homepage() {
 
   const detailCards = [
     {
       icon: (<FaDumbbell className="w-6 h-6" />),
-      title: "Fitness Training",
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. A tenetur eveniet saepe similique ea. Eveniet, earum?"
+      title: "Personalized Fitness Plans",
+      text: "Set customized workout routines tailored to your fitness level and goals. Track your exercises, sets, reps, and progress in real-time."
     },
     {
       icon: (<TbTreadmill className="w-6 h-6" />),
       title: "Modern Equipment",
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. A tenetur eveniet saepe similique ea. Eveniet, earum?"
-    },
-    {
-      icon: (<LuBicepsFlexed className="w-6 h-6" />),
-      title: "Experience Trainer",
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. A tenetur eveniet saepe similique ea. Eveniet, earum?"
+      text: "We can track any kind of workout exercises - from endurance to strength, we have you covered."
     },
     {
       icon: (<FaDumbbell className="w-6 h-6" />),
-      title: "Fitness Training",
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. A tenetur eveniet saepe similique ea. Eveniet, earum?"
+      title: "Progress Tracking & Analytics",
+      text: "Visualize your improvement with detailed statistics and charts. Stay motivated by hitting milestones and breaking personal records."
     }
   ]
 
   const programCards = [
     {
       imgSrc: "/homepage/programs-1.jpg",
-      title: "Aerobic",
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. A tenetur eveniet saepe similique ea. Eveniet, earum?"
+      title: "Cardio & Endurance",
+      text: "Log your running, cycling, and other endurance workouts to improve stamina."
     },
     {
       imgSrc: "/homepage//programs-2.jpg",
-      title: "Yoga",
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. A tenetur eveniet saepe similique ea. Eveniet, earum?"
+      title: "Flexibility & Mobility",
+      text: "Follow yoga and stretching routines to enhance flexibility and prevent injuries."
     },
     {
       imgSrc: "/homepage//programs-3.jpg",
-      title: "Lifter",
-      text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. A tenetur eveniet saepe similique ea. Eveniet, earum?"
+      title: "Strength Training",
+      text: "Monitor your lifts, progressively overload, and track gains over time."
     }
   ]
 
   return (
     <>
-      <Navbar homepage={true}/>
       <div>
         <div className="flex items-center text-white h-[500px] bg-cover bg-no-repeat bg-center" style={{ backgroundImage: "url(/homepage/header.jpg" }}>
           <div className="w-[87.5%] m-auto flex flex-col gap-5">
             <h1 className="text-7xl font-bold">Think Less,</h1>
             <h1 className="text-7xl font-bold">Lift More!</h1>
-            <p>We're dedicated to helping you transform your body and mind through the power of fitness</p>
+            <p>Transform your body and mind through the power of fitness.</p>
             <button className="w-fit p-4 flex items-center gap-4 hover:cursor-pointer">
               <p>Join Now</p>
               <FaArrowRightLong />
@@ -68,7 +58,7 @@ function Homepage() {
 
         <div className="w-[87.5%] mx-auto mt-20">
           <h2 className="text-5xl font-semibold text-center">Why Choose Us</h2>
-          <p className="text-center mt-4 mb-20">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil iusto velit provident doloribus quidem, dolorem asperiores, voluptas quos nam tempora sequi, aliquid nemo officia dicta soluta molestias eaque. Odit, porro.</p>
+          <p className="text-center mt-4 mb-20">Tracking your fitness journey has never been easier. Our workout tracker helps you stay on top of your goals, monitor progress, and maintain consistency. Whether you're a beginner or a seasoned athlete, our tool is designed to optimize your workouts and enhance your performance.</p>
           <div className="grid grid-cols-[2fr_1fr]">
             <ul className="flex flex-wrap">
               {detailCards.map((card, i) => (
@@ -88,7 +78,7 @@ function Homepage() {
 
         <div className="w-[87.5%] mx-auto my-40">
           <h2 className="text-5xl font-semibold text-center">Our Programs</h2>
-          <p className="text-center mt-4 mb-20">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil iusto velit provident doloribus quidem, dolorem asperiores, voluptas quos nam tempora sequi, aliquid nemo officia dicta soluta molestias eaque. Odit, porro.</p>
+          <p className="text-center mt-4 mb-20">Unlock powerful tools to take your fitness to the next level. Our workout tracker offers various training programs designed to suit different fitness preferences.</p>
           <ul className="grid grid-cols-[1fr_1fr_1fr] gap-4">
             {programCards.map((card, i) => (
               <div className="flex flex-col gap-2" key={i}>
@@ -98,8 +88,8 @@ function Homepage() {
               </div>))}
           </ul>
         </div>
-        <ContactPageHeader />
-        <Footer />
+        {/* <ContactPageHeader /> */}
+        {/* <Footer /> */}
       </div>
     </>
   )

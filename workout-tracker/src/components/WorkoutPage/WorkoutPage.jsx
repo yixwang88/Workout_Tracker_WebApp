@@ -2,7 +2,6 @@
 import "./WorkoutPage.css";
 import Popup from "./Popup";
 import { useRef, useState } from "react";
-import Navbar from "../Navbar/Navbar";
 
 
 const workout1 = [
@@ -76,7 +75,6 @@ const WorkoutPage = () => {
 
     return (
         <>
-            <Navbar homepage={false}/>
             <div className="workout-page relative">
                 <button className="btn1 basis-1/2" onClick={() => setWorkout(workout1)}>Populate Workout</button>
                 <button className="btn1 py-32" onClick={() => setShowPopup(true)}>Open Popup</button>
