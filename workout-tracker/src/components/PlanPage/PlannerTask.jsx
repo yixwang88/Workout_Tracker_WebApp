@@ -16,9 +16,9 @@ function makeTask(title, date, workouts) {
     }
 }
 
-const WORKOUT_INCOMPLETE = 0
-const WORKOUT_COMPLETE = 1
-const WORKOUT_FAILED = 2
+const WORKOUT_INCOMPLETE = "incomplete"
+const WORKOUT_COMPLETE = "complete"
+const WORKOUT_FAILED = "failed"
 
 function PlannerTask({task}) {
     let workoutsDone = 0
