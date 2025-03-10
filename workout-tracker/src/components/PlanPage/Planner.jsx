@@ -1,6 +1,6 @@
-function Planner(props) {
-    const dateFilter = props["dateFilter"]
+import PlannerTask, {makeTask, makeWorkout, WORKOUT_COMPLETE} from "./PlannerTask"
 
+function Planner({dateFilter}) {
     function next30Days(date) {
         let arr = []
         for(let i=0; i < 30; i++) {
@@ -14,7 +14,7 @@ function Planner(props) {
     function makeHoursArray() {
         let arr = []
         for(let i = 0; i < 24; i++) {
-            let time = new Date()
+            let time = new Date(0)
             time.setHours(i)
             time.setMinutes(0)
             arr.push(time)
@@ -28,25 +28,29 @@ function Planner(props) {
     const daysArray = next30Days(dateFilter)
     const hoursArray = makeHoursArray()
 
-    return <div className={`flex flex-row rounded-lg bg-white grow`}>
-        {/* Time labels (TODO) */}
+    return <div className={`flex flex-row rounded-lg bg-white grow overflow-scroll`}>
+        { /* Hour labels */}
         <div className="min-w-[6rem] text-center h-full flex flex-col">
             <div className="min-h-[4rem]"/>
             <div className="border-r-2  border-[#ddd] flex-grow">
                 {hoursArray.map((value) => {
-                    return <div className="min-h-[4rem]">{hourFormat.format(value)}</div>
+                    return <div key={value} className="min-h-[4rem]">{hourFormat.format(value)}</div>
                 })}
             </div>
         </div>
 
         {/* Day columns */}
-        <div className="flex flex-row overflow-scroll">
+        <div className="flex flex-row">
             {daysArray.map((value) => {
-                return <div>
+                return <div key={value}>
                     {/* Date labels */}
-                    <div className="flex border-b-2 border-[#ddd] w-[10rem] h-[4rem] justify-center text-center flex-col align-center" key={value}>
+                    <div className="flex border-b-2 border-[#ddd] w-[14rem] h-[4rem] justify-center text-center flex-col align-center" key={value}>
                         <p>{dayFormat.format(value)}</p>
                         <b>{shortDateFormat.format(value)}</b>
+                    </div>
+
+                    <div className="flex flex-row relative">
+                        <PlannerTask task={makeTask("Workout 1", new Date(), [makeWorkout("Squats", "5 sets of 10 reps", WORKOUT_COMPLETE)])} />
                     </div>
                 </div>
             })}
