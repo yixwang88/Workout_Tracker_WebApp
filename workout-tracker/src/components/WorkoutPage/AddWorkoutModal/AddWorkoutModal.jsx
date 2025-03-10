@@ -1,5 +1,5 @@
 import React from 'react'
-import "./addWorkoutModal.css"
+import "./AddWorkoutModal.css"
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
