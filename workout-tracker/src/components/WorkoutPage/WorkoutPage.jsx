@@ -5,6 +5,8 @@ import { useRef, useState } from "react";
 import AddWorkoutModal from "./AddWorkoutModal/AddWorkoutModal";
 import WorkoutCard from "./WorkoutCard/WorkoutCard";
 import WorkoutList from "./WorkoutList/WorkoutList"
+import RedirectLoginPage from "../RedirectLoginPage/RedirectLoginPage";
+import { useSelector } from "react-redux";
 
 const workouts = [
     {
@@ -122,10 +124,13 @@ const WorkoutPage = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [activeWorkout, setActiveWorkout] = useState([]);
 
+  const { user } = useSelector((state) => state.auth)
+  const loggedIn = user?.email
 
     return (
         <>
-            <div className="workout-page relative flex flex-col items-center gap-2">
+          {!loggedIn ? <RedirectLoginPage/> :
+            (<div className="workout-page relative flex flex-col items-center gap-2">
                 <div className="banner flex items-center justify-center relative">
 
                     <h1 className="">Your Workouts</h1>
@@ -140,7 +145,8 @@ const WorkoutPage = () => {
                     onClose={() => setModalIsOpen(false)}
                     onSave={(data) => setActiveWorkout([...activeWorkout, data])}
                 />
-            </div>
+            </div>)
+          } 
         </>
     );
 };
