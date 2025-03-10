@@ -1,59 +1,81 @@
-require("dotenv").config()
-const express = require('express')
-const cors = require('cors')
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+require("dotenv").config();
+const express = require('express');
+const cors = require('cors');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const mongoose = require("mongoose");
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3000;
 
-const app = express()
+const app = express();
 
-app.use(cors())
-app.use(express.json())
+app.use(cors());
+app.use(express.json());
 
-let userData = []
+// Create connection to the database
+mongoose.connect(process.env.DATABASE_URL)
+.then(()=> console.log("Connected to MongoDB...")) //if there is a connection
+.catch((error)=> console.error("Could not connect to MongoDB...", error)); //if there is no connection
+
+// Define the user schema and model
+const userSchema = new mongoose.Schema({
+  email: {type: String, required: true, unique: true},
+  name: {type: String, required: true},
+  password: {type: String, required: true}
+});
+
+// Password validation utility function
+function validatePassword(password) {
+  const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+  return regex.test(password);
+}
+
+// Create the user model
+const User = mongoose.model("User", userSchema);
 
 app.post('/api/signup', async (req, res) => {
-  const { name, email, password } = req.body
+  const { name, email, password } = req.body;
   if (!name || !email || !password ) {
-    return res.status(400).json({message: "All fields are required."})
+    return res.status(400).json({message: "All fields are required."});
   }
-  if (userData.some(user => user.email == email)) {
-    return res.status(400).json({message: "Email already in use"})
+  try {
+    // Attempt to find an existing user with the same email
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({message: "Email already in use."});
+    }
+    // Validate the password
+    if (!validatePassword(password)) {
+      return res.status(400).json({message: "Password must be at least 6 characters long and contain at least one letter and one number."});
+    }
+    const hashedPass = await bcrypt.hash(password, 10);
+    const newUser = new User({ ...rest, email, password: hashedPassword });
+    await newUser.save();
+    return res.status(201).json({message: "Signup successful."});
+  } catch (err) {
+    return res.status(500).json({ message: err.message || "Error while signup." });
   }
-  const hashedPass = await bcrypt.hash(password, 10)
-  const newUser = {
-    name,
-    email,
-    password: hashedPass
-  }
-  userData.push(newUser)
-  return res.status(201).json({message: "Signup successful."})
 })
 
 app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body
+  const { email, password } = req.body;
   if (!email || !password) {
-    return res.status(400).json({message: "Email and password are required."})
+    return res.status(400).json({message: "Email and password are required."});
   }
-  const user = userData.find(user => user.email == email)
-  if (!user) {
-    return res.status(400).json({message: "User not found."})
+  try {
+    const user = await User.findOne({email}); 
+    if (!user) {
+      return res.status(400).json({message: "User not found."});
+    }
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({message: "Invalid credentials."});
+    }
+    const token = jwt.sign({ id: user.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    return res.status(200).json({ message: "Login successful.", token, user});
+  } catch (err) {
+    return res.status(500).json({ message: "Error finding user." });
   }
-  const isMatch = await bcrypt.compare(password, user.password)
-  if (!isMatch) {
-    return res.status(401).json({message: "Invalid credentials"})
-  }
-  // const accessToken = jwt.sign(
-  //   {email},
-  //   process.env.JWT_SECRET,
-  //   {expiresIn: "1h"}
-  // )
-  return res.status(200).json({
-    message: "Login successful.",
-    // token: accessToken,
-    user
-  })
 })
 
 app.listen(PORT, () => {
