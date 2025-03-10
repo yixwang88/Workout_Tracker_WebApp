@@ -48,8 +48,8 @@ app.post('/api/signup', async (req, res) => {
     if (!validatePassword(password)) {
       return res.status(400).json({message: "Password must be at least 6 characters long and contain at least one letter and one number."});
     }
-    const hashedPass = await bcrypt.hash(password, 10);
-    const newUser = new User({ ...rest, email, password: hashedPassword });
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
     return res.status(201).json({message: "Signup successful."});
   } catch (err) {
