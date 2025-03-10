@@ -4,48 +4,36 @@
     --Btn2: rgb(49, 49, 49);
     --Btn2Hover: rgb(0, 0, 0);
     --lightText: #797979;
-    --bgdtitle: #707070;
 }
 
-.workout-page {
+.workout-modal {
     padding: 20px 10px;
+    z-index: 1000;
 }
 
-.workout-page .separator {
+.workout-modal .separator {
     padding: 32px 0px;
     width: 100%;
 }
 
-.workout-page .banner {
-    color: white;
-    width: 100%;
-    text-align: center;
-    font-size: 30px;
-    font-weight: bold;
-    padding: 20px 0px;
-    background-color: var(--bgdtitle);
-
-}
-
-.workout-page .border {
+.workout-modal .border {
     border: 1px solid var(--lightText);
 }
 
-.workout-page .btn1 {
+.workout-modal .btn1 {
     font-size: medium;
-    color:white;
+    color:black;
     padding: 12px 24px;
-    background-color: var(--bgdtitle);
+    background-color: var(--Btn1);
     border-style: solid;
     border-radius: 10px;
     border: 1px solid var(--lightText);
-    cursor: pointer;
     &:hover {
         background-color: var(--Btn1Hover);
     }
 }
 
-.workout-page .btn2 {
+.workout-modal .btn2 {
     font-size: medium;
     color:white;
     padding: 12px 24px;
@@ -53,59 +41,42 @@
     border-style: solid;
     border-radius: 10px;
     box-shadow: 0px 2px 2px lightgray;
-    cursor: pointer;
     &:hover {
         background-color: var(--Btn2Hover);
     }
 }
 
-.workout-page .btn3 {
-    font-size: medium;
-    color: var(--bgdtitle);
-    padding: 12px 24px;
-    position: absolute;
-    right: 10px;
-    background-color: var(--Btn1);
-    border-style: solid;
-    border-radius: 10px;
-    border: 1px solid var(--lightText);
-    cursor: pointer;
-    &:hover {
-        background-color: var(--Btn1Hover);
-    }
-}
-
-.workout-page .close-btn {
+.workout-modal .close-btn {
     max-width: 48;
 }
 
-.workout-page .card {
+.workout-modal .card {
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
     border-radius: 5px;
 }
 
-.workout-page .card:hover {
+.workout-modal .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
-.workout-page .container {
+.workout-modal .container {
     padding: 8px 16px;
     border-radius: 5px;
     border-style: solid;
 }
 
-.workout-page .pop-up-info {
+.workout-modal .pop-up-info {
     padding-bottom: 8px;
 }
 
-.workout-page .pop-up-info h1 {
+.workout-modal .pop-up-info h1 {
     padding: 0px 0px;
     font-size: 32px;
     font-weight: bold;
 }
 
-.workout-page .pop-up-info p {
+.workout-modal .pop-up-info p {
     padding: 8px 0px;
     font-size: small;
     font-weight: normal;
@@ -113,13 +84,13 @@
 }
 
 
-.workout-page .workout-type h1 {
+.workout-modal .workout-type h1 {
     padding: 2px 0px;
     font-size: medium;
     font-weight: normal;
 }
 
-.workout-page .workout-type select {
+.workout-modal .workout-type select {
     padding: 8px 16px;
     box-sizing: border-box;
     font-size: small;
@@ -131,7 +102,7 @@
     width: 100%;
 }
 
-.workout-page .input-section input {
+.workout-modal .input-section input {
     padding: 8px 16px;
     margin: 2px 0px;
     box-sizing: border-box;
@@ -144,19 +115,19 @@
     width: 100%;
 }
 
-.workout-page .input-section input:focus {
+.workout-modal .input-section input:focus {
     outline: none;
     border: 2px solid var(--lightText);
 }
 
-.workout-page .add-exercise {
+.workout-modal .add-exercise {
     padding: 32px 0px;
 }
 
-.workout-page .exercise-card {
+.workout-modal .exercise-card {
     padding: 4px 0px;
 }
 
-.workout-page .clickable-card:hover {
+.workout-modal .clickable-card:hover {
     background-color: var(--Btn1Hover);
 }
