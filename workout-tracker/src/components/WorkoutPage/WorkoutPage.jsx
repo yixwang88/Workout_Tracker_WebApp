@@ -1,7 +1,7 @@
 
 import "./WorkoutPage.css";
 import Popup from "./AddWorkoutModal/AddWorkoutModal";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AddWorkoutModal from "./AddWorkoutModal/AddWorkoutModal";
 import WorkoutCard from "./WorkoutCard/WorkoutCard";
 import WorkoutList from "./WorkoutList/WorkoutList"
@@ -124,29 +124,34 @@ const WorkoutPage = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [activeWorkout, setActiveWorkout] = useState([]);
 
-  const { user } = useSelector((state) => state.auth)
-  const loggedIn = user?.email
+    const { user } = useSelector((state) => state.auth)
+    const loggedIn = user?.email
+    const loaded = data.loaded
+
+    useEffect(() => {
+
+    }
 
     return (
         <>
-          {!loggedIn ? <RedirectLoginPage/> :
-            (<div className="workout-page relative flex flex-col items-center gap-2">
-                <div className="banner flex items-center justify-center relative">
+            {!loggedIn ? <RedirectLoginPage /> :
+                (<div className="workout-page relative flex flex-col items-center gap-2">
+                    <div className="banner flex items-center justify-center relative">
 
-                    <h1 className="">Your Workouts</h1>
-                    <button className="btn3" onClick={() => setModalIsOpen(true)}>New Workout</button>
-                </div>
-                <button className="btn1 basis-1/2" onClick={() => setActiveWorkout(workouts)}>Populate Workout</button>
+                        <h1 className="">Your Workouts</h1>
+                        <button className="btn3" onClick={() => setModalIsOpen(true)}>New Workout</button>
+                    </div>
+                    <button className="btn1 basis-1/2" onClick={() => setActiveWorkout(workouts)}>Populate Workout</button>
 
-                <WorkoutList workoutList={workouts} />
+                    <WorkoutList workoutList={workouts} />
 
-                <AddWorkoutModal
-                    modalIsOpen={modalIsOpen}
-                    onClose={() => setModalIsOpen(false)}
-                    onSave={(data) => setActiveWorkout([...activeWorkout, data])}
-                />
-            </div>)
-          } 
+                    <AddWorkoutModal
+                        modalIsOpen={modalIsOpen}
+                        onClose={() => setModalIsOpen(false)}
+                        onSave={(data) => setActiveWorkout([...activeWorkout, data])}
+                    />
+                </div>)
+            }
         </>
     );
 };
