@@ -1,22 +1,23 @@
 import { useState } from "react";
 import Planner from "./Planner";
 import TopBar from "./TopBar";
-import RedirectLoginPage from "../RedirectLoginPage/RedirectLoginPage";
-import { useSelector } from "react-redux";
+import AddPlanModal from "./AddPlanModal";
 
 const PlanPage = function () {
-    const [date, setDate] = useState(new Date())
-    const { user } = useSelector((state) => state.auth.user)
-    const loggedIn = user?.email
+    const [dateFilter, setDateFilter] = useState(new Date())
+    const [modalOpen, setModalOpen] = useState(false)
+
+    const toggleModal = () => {
+      setModalOpen(!modalOpen)
+    }
 
     return (
         <>
-          {!loggedIn ? <RedirectLoginPage/> :
+            {modalOpen && <AddPlanModal toggleModal={toggleModal} />}
             <div className="flex gap-4 box-border h-screen flex-col grow bg-[#FAFAFA] p-10">
-                <TopBar date={date} onSetDate={setDate} />
-                <Planner date={date} />
+                <TopBar date={dateFilter} onSetDate={setDateFilter} toggleModal={toggleModal} />
+                <Planner dateFilter={dateFilter} />
             </div>
-          }
         </>
     )
 }
