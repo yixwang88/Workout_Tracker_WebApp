@@ -7,6 +7,7 @@ import PlanPage from "./components/PlanPage/PlanPage.jsx"
 import ExercisePlan from './components/ExercisePage/ExercisePage.jsx'
 import WorkoutPage from "./components/WorkoutPage/WorkoutPage.jsx"
 import CurrentWorkout from "./components/CurrentWorkout/CurrentWorkout.jsx"
+import PathNotFound from "./components/PathNotFound/pathNotFound.jsx"
 import { Toaster } from "react-hot-toast"
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path='/exercise' element={<ExercisePlan/>}/>
         <Route path='/add-workout' element={<WorkoutPage/>}/>
         <Route path="/current-workout" element={<CurrentWorkout/>} />
+        <Route path="/*" element={<PathNotFound/>}></Route>
       </Routes>
     </>
   );
