@@ -4,6 +4,8 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
+const request = require('request');
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -14,14 +16,14 @@ app.use(express.json());
 
 // Create connection to the database
 mongoose.connect(process.env.DATABASE_URL)
-.then(()=> console.log("Connected to MongoDB...")) //if there is a connection
-.catch((error)=> console.error("Could not connect to MongoDB...", error)); //if there is no connection
+  .then(() => console.log("Connected to MongoDB...")) //if there is a connection
+  .catch((error) => console.error("Could not connect to MongoDB...", error)); //if there is no connection
 
 // Define the user schema and model
 const userSchema = new mongoose.Schema({
-  email: {type: String, required: true, unique: true},
-  name: {type: String, required: true},
-  password: {type: String, required: true}
+  email: { type: String, required: true, unique: true },
+  name: { type: String, required: true },
+  password: { type: String, required: true }
 });
 
 // Password validation utility function
@@ -35,23 +37,23 @@ const User = mongoose.model("User", userSchema);
 
 app.post('/api/signup', async (req, res) => {
   const { name, email, password } = req.body;
-  if (!name || !email || !password ) {
-    return res.status(400).json({message: "All fields are required."});
+  if (!name || !email || !password) {
+    return res.status(400).json({ message: "All fields are required." });
   }
   try {
     // Attempt to find an existing user with the same email
     const user = await User.findOne({ email });
     if (user) {
-      return res.status(400).json({message: "Email already in use."});
+      return res.status(400).json({ message: "Email already in use." });
     }
     // Validate the password
     if (!validatePassword(password)) {
-      return res.status(400).json({message: "Password must be at least 6 characters long and contain at least one letter and one number."});
+      return res.status(400).json({ message: "Password must be at least 6 characters long and contain at least one letter and one number." });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ name, email, password: hashedPassword });
     await newUser.save();
-    return res.status(201).json({message: "Signup successful."});
+    return res.status(201).json({ message: "Signup successful." });
   } catch (err) {
     return res.status(500).json({ message: err.message || "Error while signup." });
   }
@@ -60,23 +62,42 @@ app.post('/api/signup', async (req, res) => {
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    return res.status(400).json({message: "Email and password are required."});
+    return res.status(400).json({ message: "Email and password are required." });
   }
   try {
-    const user = await User.findOne({email}); 
+    const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({message: "User not found."});
+      return res.status(400).json({ message: "User not found." });
     }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({message: "Invalid credentials."});
+      return res.status(401).json({ message: "Invalid credentials." });
     }
     const token = jwt.sign({ id: user.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
-    return res.status(200).json({ message: "Login successful.", token, user});
+    return res.status(200).json({ message: "Login successful.", token, user });
   } catch (err) {
     return res.status(500).json({ message: "Error finding user." });
   }
 })
+app.get('/api/exercise', async (req, res) => {
+  try {
+    const muscle = req.query.search || "triceps"; 
+    const response = await fetch(`https://exercisedb-api.vercel.app/api/v1/exercises/autocomplete?search=${muscle}`, {
+      method: 'GET',
+
+    });
+
+    if (!response.ok) throw new Error(`API request failed: ${response.status}`);
+
+    const data = await response.json();
+    res.json(data);
+    console.log(data);
+  } catch (error) {
+    console.error('Error fetching exercises:', error);
+    res.status(500).json({ error: 'Failed to fetch exercises' });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`)
