@@ -31,10 +31,19 @@ const exerci = [
   },
 ];
 
+import RedirectLoginPage from "../RedirectLoginPage/RedirectLoginPage";
+import { useSelector } from "react-redux";
 
 const ExercisePage = () => {
+
+  const { user } = useSelector((state) => state.auth)
+  const loggedIn = user?.email
+
   const [exercises, setExercises] = useState([]);
   const [search, setSearch] = useState("biceps");
+  const [input, setInput] = useState("");
+
+
   const fetchExercises = async () => {
     try {
       const response = await fetch(`http://localhost:3000/api/exercise?search=${search}`);
@@ -43,78 +52,100 @@ const ExercisePage = () => {
       const data = await response.json();
       setExercises(data);
       console.log(data);
-
     } catch (error) {
       console.log(error);
-
+      //Add hot toast here
+      setExercises({});
     }
   };
+
   useEffect(() => {
     fetchExercises();
   }, [search]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    window.history.pushState(null, '', `?search=${search}`);
+    setSearch(input);
+    window.history.pushState(null, "", `?search=${search}`);
   };
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
-    const searchFromURL = queryParams.get('search');
+    const searchFromURL = queryParams.get("search");
     if (searchFromURL) {
-      setSearch(searchFromURL); 
+      setSearch(searchFromURL);
     }
   }, []);
+
   const handleChange = (e) => {
     console.log(e.target.value);
-    setSearch(e.target.value); 
+    setInput(e.target.value);
   };
+
   return (
     <>
-      <div className="min-h-screen bg-gray-100">
-        {/* White Background for Content */}
-        <div className="bg-white py-10">
-          <div className="container mx-auto px-5">
-            <form onSubmit={handleSubmit} className="mb-5">
-              <label htmlFor="muscle">Search Muscle: </label>
-              <input
-                type="text"
-                id="search"
-                value={search}
-                onChange={handleChange}
-                placeholder="Enter muscle"
-                className="border p-2"
-              />
-              <button type="submit" className="ml-2 px-4 py-2 bg-blue-500 text-white">Search</button>
-            </form>
+      {!loggedIn ? <RedirectLoginPage/> :
+      <div className="min-h-screen w-full bg-gray-100 py-10">
+        <div className="container mx-auto px-6">
+          {/* Search Bar */}
+          <form onSubmit={handleSubmit} className="mb-5 flex items-center space-x-4">
+            <label htmlFor="muscle" className="text-lg font-medium">Search Muscle:</label>
+            <input
+              type="text"
+              id="search"
+              value={input}
+              onChange={handleChange}
+              placeholder="Enter muscle"
+              className="border p-2 rounded-md w-60"
+            />
+            <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+              Search
+            </button>
+          </form>
 
-            {/* Exercise Cards Grid */}
+          {/* Exercise Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
             {exercises.length? (
               exercises.map((exercise) => (
                 <div
-                  key={exercise.exerciseId}
-                  className="relative bg-white w-[413px] h-[413px] rounded-xl shadow-lg overflow-hidden p-6"
+                  key={exercise.name}
+                  className="relative bg-white w-full sm:w-[340px] h-[420px] rounded-2xl shadow-lg overflow-hidden p-6 mx-auto transition-transform hover:scale-105"
                 >
                   {/* Exercise Image */}
-                  <img
-                    src={exercise.gifUrl} // To Do: Add default image
-                    alt={exercise.title} // 
-                    className="absolute left-[96px] top-[24px] w-[468px] h-[526px] object-cover opacity-80"
-                  />
-                  {/* Exercise Title */}
-                  <div className="absolute left-[21px] top-[20px] text-black text-2xl font-bold">
-                    <h3>{exercise.name}</h3>
+                  <div className="relative h-56">
+                    <img
+                      src={exercise.gifUrl || "/images/arm_leg_exercise.png"} // Use a fallback image if missing
+                      alt={exercise.name}
+                      className="w-full h-full object-cover opacity-90"
+                    />
+                    <div className="absolute inset-0 bg-white opacity-60"></div>
+                  </div>
+
+                  {/* Text Content */}
+                  <div className="relative z-10 mt-4">
+                    <h3 className="text-2xl font-bold text-gray-900">{exercise.name}</h3>
+                    <p className="text-gray-700 mt-1">Target: {exercise.target || "General"}</p>
+                  </div>
+
+                  {/* Get Started Button */}
+                  <div className="relative z-10 mt-4">
+                    <button
+                      onClick={() => navigate(`/exercise/${exercise.exerciseId}`)}
+                      className="flex items-center space-x-2 text-blue-600 font-medium hover:underline"
+                    >
+                      <span>Get Started</span>
+                      <FaArrowRight />
+                    </button>
                   </div>
                 </div>
               ))
-              ) : (
-                <p>No exercises found.</p>
-              )}
-            </div>
+            ) : (
+              <p className="text-gray-600 text-lg">No exercises found.</p>
+            )}
           </div>
         </div>
       </div>
+      }
     </>
   );
 };
