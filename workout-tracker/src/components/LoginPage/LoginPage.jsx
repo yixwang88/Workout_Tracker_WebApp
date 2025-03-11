@@ -66,7 +66,7 @@ function LoginPage() {
       
       const resData = await res.json()
       if (res.ok) {
-        dispatch(login(resData.user))
+        dispatch(login(resData))
         toast.success("Login successful!")
         navigate('/plan')
       } else {

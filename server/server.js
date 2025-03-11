@@ -97,16 +97,21 @@ app.post('/api/login', async (req, res) => {
 })
 
 app.post('/api/create_task', async (req, res) => {
-  const { token, task } = req
+  const { token, task } = req.body
 
+  let email;
   try {
-    const { email } = jwt.verify(token, process.env.JWT_SECRET)
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    email = decoded.id
   }
   catch(error) {
+    console.log("token error: ", error)
     return res.status(401).json({ message: "Invalid token." })
   }
 
-  const user = User.findOne({ "email": email })
+  const user = await User.findOne({ "email": email })
+
+  console.log(user)
 
   user.tasks.push(task)
   await user.save()

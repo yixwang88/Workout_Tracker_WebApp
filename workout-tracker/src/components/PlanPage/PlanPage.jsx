@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 const PlanPage = function () {
     const [date, setDate] = useState(new Date())
-    const { user } = useSelector((state) => state.auth)
+    const { user } = useSelector((state) => state.auth.user)
     const loggedIn = user?.email
 
     return (

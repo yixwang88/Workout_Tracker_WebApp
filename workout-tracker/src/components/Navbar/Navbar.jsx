@@ -24,8 +24,6 @@ function Navbar() {
     }
   }
 
-  console.log(user)
-
   const navigationLinks = [
     {
       name: 'Home',

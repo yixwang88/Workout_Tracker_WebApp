@@ -23,10 +23,13 @@ const authSlice = createSlice({
     },
     loader: (state, action) => {
       state.loaded = action.payload
-    }
+    },
+    addTask: (state, action) => {
+      state.user.user.tasks.push(action.payload)
+    },
   }
 })
 
-export const {login, logout, loader} = authSlice.actions
+export const {login, logout, loader, addTask} = authSlice.actions
 
 export default authSlice.reducer

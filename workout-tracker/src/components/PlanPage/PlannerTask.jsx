@@ -42,7 +42,7 @@ function PlannerTask({task}) {
         }
     }
 
-    const date = task.date
+    const date = new Date(task.date)
     const hours = date.getHours()
     const minutes = date.getMinutes()
     const totalMinutes = (hours * 60) + minutes

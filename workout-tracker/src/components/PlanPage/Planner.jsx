@@ -19,7 +19,7 @@ function Planner({date}) {
         for(let i = 0; i < 24; i++) {
             let time = new Date(0)
             time.setHours(i)
-            time.setMinutes(0)
+            time.setMinutes(0, 0, 0)
             arr.push(time)
         }
         return arr
@@ -31,7 +31,7 @@ function Planner({date}) {
     const daysArray = next30Days(date)
     const hoursArray = makeHoursArray()
 
-    const { user } = useSelector((state) => state.auth)
+    const { user } = useSelector((state) => state.auth.user)
 
     return <div className={`flex flex-row rounded-lg bg-white grow overflow-scroll`}>
         { /* Hour labels */}
@@ -56,15 +56,15 @@ function Planner({date}) {
                     </div>
 
                     <div className="flex flex-row relative">
-                        {user.tasks.map(function(value) {
+                        {user.tasks.map(function(value, index) {
                             const task = value
                             let taskDate = new Date(task.date)
                             taskDate.setMinutes(0, 0, 0)
                             taskDate.setHours(0)
-                            if( taskDate !== day )
+                            if( !(taskDate.getTime() === day.getTime()) )
                                 return null
                             
-                            return <PlannerTask task={task} />
+                            return <PlannerTask key={index} task={task} />
                         })}
                     </div>
                 </div>
