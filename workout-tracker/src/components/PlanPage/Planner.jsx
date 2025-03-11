@@ -1,11 +1,14 @@
 import PlannerTask, {makeTask, makeWorkout, WORKOUT_COMPLETE} from "./PlannerTask"
+import { useSelector } from "react-redux"
 
-function Planner({dateFilter}) {
+function Planner({date}) {
     function next30Days(date) {
         let arr = []
         for(let i=0; i < 30; i++) {
             let newDate = new Date(date)
             newDate.setDate(newDate.getDate() + i)
+            newDate.setHours(0)
+            newDate.setMinutes(0,0,0)
             arr.push(newDate)
         }
         return arr
@@ -25,8 +28,10 @@ function Planner({dateFilter}) {
     const dayFormat = new Intl.DateTimeFormat(navigator.language, { weekday: "short" })
     const shortDateFormat = new Intl.DateTimeFormat(navigator.language, { month: "short", day: "numeric" })
     const hourFormat = new Intl.DateTimeFormat(navigator.language, { hour: "2-digit", minute: "2-digit", hourCycle: "h12"})
-    const daysArray = next30Days(dateFilter)
+    const daysArray = next30Days(date)
     const hoursArray = makeHoursArray()
+
+    const { user } = useSelector((state) => state.auth)
 
     return <div className={`flex flex-row rounded-lg bg-white grow overflow-scroll`}>
         { /* Hour labels */}
@@ -42,15 +47,25 @@ function Planner({dateFilter}) {
         {/* Day columns */}
         <div className="flex flex-row">
             {daysArray.map((value) => {
-                return <div key={value}>
+                const day = value
+                return <div key={day}>
                     {/* Date labels */}
                     <div className="flex border-b-2 border-[#ddd] w-[14rem] h-[4rem] justify-center text-center flex-col align-center" key={value}>
-                        <p>{dayFormat.format(value)}</p>
-                        <b>{shortDateFormat.format(value)}</b>
+                        <p>{dayFormat.format(day)}</p>
+                        <b>{shortDateFormat.format(day)}</b>
                     </div>
 
                     <div className="flex flex-row relative">
-                        <PlannerTask task={makeTask("Workout 1", new Date(), [makeWorkout("Squats", "5 sets of 10 reps", WORKOUT_COMPLETE)])} />
+                        {user.tasks.map(function(value) {
+                            const task = value
+                            let taskDate = new Date(task.date)
+                            taskDate.setMinutes(0, 0, 0)
+                            taskDate.setHours(0)
+                            if( taskDate !== day )
+                                return null
+                            
+                            return <PlannerTask task={task} />
+                        })}
                     </div>
                 </div>
             })}

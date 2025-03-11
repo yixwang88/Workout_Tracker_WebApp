@@ -5,7 +5,7 @@ import RedirectLoginPage from "../RedirectLoginPage/RedirectLoginPage";
 import { useSelector } from "react-redux";
 
 const PlanPage = function () {
-    const [dateFilter, setDateFilter] = useState(new Date())
+    const [date, setDate] = useState(new Date())
     const { user } = useSelector((state) => state.auth)
     const loggedIn = user?.email
 
@@ -13,8 +13,8 @@ const PlanPage = function () {
         <>
           {!loggedIn ? <RedirectLoginPage/> :
             <div className="flex gap-4 box-border h-screen flex-col grow bg-[#FAFAFA] p-10">
-                <TopBar date={dateFilter} onSetDate={setDateFilter} />
-                <Planner dateFilter={dateFilter} />
+                <TopBar date={date} onSetDate={setDate} />
+                <Planner date={date} />
             </div>
           }
         </>

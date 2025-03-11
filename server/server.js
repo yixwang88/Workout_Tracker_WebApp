@@ -24,6 +24,7 @@ const workoutSchema = new mongoose.Schema({
   status: {
     type: String,
     enum: ['incomplete', 'complete', 'failed'],
+    required: true,
     default: 'incomplete',
   }
 })

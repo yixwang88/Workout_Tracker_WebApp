@@ -1,6 +1,8 @@
-function TopBar(props) {
-    const startDate = props.date
+import DatePicker from 'react-datepicker'
 
+import 'react-datepicker/dist/react-datepicker.css'
+
+function TopBar({date, onSetDate}) {
     return <div className="flex flex-row justify-between">
         {/* Left buttons */}
         <div className="flex flex-row gap-2">
@@ -8,7 +10,11 @@ function TopBar(props) {
             <button className="rounded-lg bg-black text-white p-1 hover:cursor-pointer">Add Plan</button>
 
             {/* Month Selector */}
-            <button className="rounded-lg bg-white border border-[#B9B9B9] text-[#898989] p-1 hover:cursor-pointer">{startDate.toDateString()}</button>
+            <DatePicker
+                selected={date}
+                onChange={onSetDate}
+                className="rounded-lg bg-white border border-[#B9B9B9] text-[#898989] p-1 hover:cursor-pointer"
+            />
 
             {/* Filter button */}
             <button className="rounded-lg bg-white border border-[#B9B9B9] text-[#898989] p-1 hover:cursor-pointer">Filter</button>
