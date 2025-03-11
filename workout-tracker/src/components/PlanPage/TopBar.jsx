@@ -1,4 +1,5 @@
 import DatePicker from "react-datepicker";
+import { Link } from "react-router-dom";
 
 function TopBar({date, onSetDate, toggleModal}) {
 
@@ -17,6 +18,9 @@ function TopBar({date, onSetDate, toggleModal}) {
 
             {/* Filter button */}
             <button className="rounded-lg bg-white border border-[#B9B9B9] text-[#898989] p-1 hover:cursor-pointer">Filter</button>
+            <Link to="/current-workout">
+              <button className="px-2 rounded-lg bg-black text-white p-1 hover:cursor-pointer">Current Workout</button>
+            </Link>
         </div>
 
         {/* Search bar */}
