@@ -18,10 +18,27 @@ mongoose.connect(process.env.DATABASE_URL)
 .catch((error)=> console.error("Could not connect to MongoDB...", error)); //if there is no connection
 
 // Define the user schema and model
+const workoutSchema = new mongoose.Schema({
+  title: {type: String, required: true},
+  workoutInfo: {type: String, required: true},
+  status: {
+    type: String,
+    enum: ['incomplete', 'complete', 'failed'],
+    default: 'incomplete',
+  }
+})
+
+const taskSchema = new mongoose.Schema({
+  title: {type: String, required: true},
+  date: {type: Date, required: true},
+  workouts: [workoutSchema],
+})
+
 const userSchema = new mongoose.Schema({
   email: {type: String, required: true, unique: true},
   name: {type: String, required: true},
-  password: {type: String, required: true}
+  password: {type: String, required: true},
+  tasks: [taskSchema],
 });
 
 // Password validation utility function
@@ -76,6 +93,22 @@ app.post('/api/login', async (req, res) => {
   } catch (err) {
     return res.status(500).json({ message: "Error finding user." });
   }
+})
+
+app.post('/api/create_task', async (req, res) => {
+  const { token, task } = req
+
+  try {
+    const { email } = jwt.verify(token, process.env.JWT_SECRET)
+  }
+  catch(error) {
+    return res.status(401).json({ message: "Invalid token." })
+  }
+
+  const user = User.findOne({ "email": email })
+
+  user.tasks.push(task)
+  await user.save()
 })
 
 app.listen(PORT, () => {
