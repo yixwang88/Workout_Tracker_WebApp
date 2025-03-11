@@ -3,10 +3,12 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialUserState = {
   name: '',
   email: '',
+  tasks: [],
 }
 
 const initialState = {
   user: initialUserState,
+  token: "",
   loaded: false
 }
 
@@ -15,17 +17,18 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state.user = action.payload
+      state.user = action.payload.user
+      state.token = action.payload.token
       state.loaded = true
     },
     logout: (state, action) => {
-      state.user = initialUserState
+      state = initialState
     },
     loader: (state, action) => {
       state.loaded = action.payload
     },
     addTask: (state, action) => {
-      state.user.user.tasks.push(action.payload)
+      state.user.tasks.push(action.payload)
     },
   }
 })

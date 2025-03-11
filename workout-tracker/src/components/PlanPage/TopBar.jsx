@@ -1,6 +1,6 @@
-function TopBar(props) {
-    const startDate = props.date
-    const toggleModal = props.toggleModal
+import DatePicker from "react-datepicker";
+
+function TopBar({date, onSetDate, toggleModal}) {
 
     return <div className="flex flex-row justify-between">
         {/* Left buttons */}

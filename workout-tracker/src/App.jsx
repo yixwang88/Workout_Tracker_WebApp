@@ -7,11 +7,13 @@ import PlanPage from "./components/PlanPage/PlanPage.jsx"
 import ExercisePlan from './components/ExercisePage/ExercisePage.jsx'
 import WorkoutPage from "./components/WorkoutPage/WorkoutPage.jsx"
 import CurrentWorkout from "./components/CurrentWorkout/CurrentWorkout.jsx"
+import { Toaster } from "react-hot-toast"
 
 function App() {
 
   return (
     <>
+      <Toaster />
       <Navbar />
       <Routes>
         <Route path='/' element={<Homepage />} />

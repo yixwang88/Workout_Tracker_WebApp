@@ -97,24 +97,29 @@ app.post('/api/login', async (req, res) => {
 })
 
 app.post('/api/create_task', async (req, res) => {
-  const { token, task } = req.body
-
-  let email;
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    email = decoded.id
+    const { token, task } = req.body
+
+    let email;
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET)
+      email = decoded.id
+    }
+    catch(error) {
+      //console.error("token error: ", error)
+      return res.status(401).json({ message: "Invalid token." })
+    }
+
+    const user = await User.findOne({ "email": email })
+
+    user.tasks.push(task)
+    await user.save()
+    return res.status(201).json({ message: "Task created" })
   }
   catch(error) {
-    console.log("token error: ", error)
-    return res.status(401).json({ message: "Invalid token." })
+    console.error("Unknown error: ", error)
+    return res.status(500).json({ message: "Server error" })
   }
-
-  const user = await User.findOne({ "email": email })
-
-  console.log(user)
-
-  user.tasks.push(task)
-  await user.save()
 })
 
 app.listen(PORT, () => {

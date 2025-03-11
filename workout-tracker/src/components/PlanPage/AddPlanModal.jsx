@@ -4,8 +4,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-dropdown-select";
 import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { addTask, logout } from "../../store/slices/authSlice";
+import { useNavigate } from 'react-router-dom'
 
 function AddPlanModal({ toggleModal }) {
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const hoursOptions = new Array(24).fill({}).map((option, index) => (
     {
@@ -16,12 +22,34 @@ function AddPlanModal({ toggleModal }) {
 
   const presets = [
     {
-      id: 1,
-      name: 'Workout 1'
+      id: 0,
+      name: 'Workout 1',
+      title: 'Workout 1',
+      workouts: [
+        {
+          title: 'Squats',
+          workoutInfo: '5 sets, 10 reps'
+        },
+        {
+          title: 'Bicep Curls',
+          workoutInfo: '4 sets, 8 reps, 30 lbs'
+        }
+      ]
     },
     {
-      id: 2,
-      name: 'Workout 2'
+      id: 1,
+      name: 'Workout 2',
+      title: 'Workout 2',
+      workouts: [
+        {
+          title: 'Jumping Jacks',
+          workoutInfo: '5 sets, 25 reps'
+        },
+        {
+          title: 'Treadmill',
+          workoutInfo: '30 minutes'
+        }
+      ]
     }
   ];
 
@@ -30,10 +58,12 @@ function AddPlanModal({ toggleModal }) {
   const [startDate, setStartDate] = useState(todayDateOnly)
   const [startTime, setStartTime] = useState(hoursOptions[0])
   const [endTime, setEndTime] = useState(hoursOptions[1])  
-  const [workoutPreset, setWorkoutPreset] = useState("")
+  const [workoutPreset, setWorkoutPreset] = useState(null)
   const [repeatAllWeek, setRepeatAllWeek] = useState(false)
 
-  const handleSubmit = () => {
+  const {token, user} = useSelector((state) => state.auth)
+
+  const handleSubmit = async () => {
     if (startTime.id > endTime.id) {
       toast.error("Cannot start a workout after it has ended.")
     } else if (endTime.id < startTime.id) {
@@ -44,17 +74,43 @@ function AddPlanModal({ toggleModal }) {
       const endDate = new Date(startDate)
       startDate.setHours(startTime.id, 0, 0)
       endDate.setHours(endTime.id, 0, 0)
-  
-      const newTask = {
-        startDate,
-        endDate,
-        workoutPreset: workoutPreset.id,
-        repeatAllWeek
-      }
-      toggleModal()
-    
-      //TODO - sumbit task and use it somewhere
 
+      toggleModal()
+
+      console.log(workoutPreset)
+
+      const body = {
+        token: token,
+        task: {
+          "title": workoutPreset.name,
+          "date": startDate.toISOString(),
+          "workouts": workoutPreset.workouts,
+        }
+      }
+
+      console.log(`Sending body: ${JSON.stringify(body)}`)
+    
+      const res = await fetch("http://localhost:3000/api/create_task", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      })
+
+      if(!res.ok) {
+        switch(res.status) {
+          case 401:
+            toast.error("Invalid token. Please log in again")
+            dispatch(logout(null))
+            navigate("/login")
+            return
+          default:
+            toast.error("An error occurred while submitting the task. Please try again.")
+            console.error("Error submitting task: ", await res.text())
+            return
+        }
+      }
+
+      dispatch(addTask(body.task))
     }
   }
 

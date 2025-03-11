@@ -31,7 +31,8 @@ function Planner({date}) {
     const daysArray = next30Days(date)
     const hoursArray = makeHoursArray()
 
-    const { user } = useSelector((state) => state.auth.user)
+    const data = useSelector((state) => state.auth)
+    const user = data.user
 
     return <div className={`flex flex-row rounded-lg bg-white grow overflow-scroll`}>
         { /* Hour labels */}
