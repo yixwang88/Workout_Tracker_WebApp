@@ -49,7 +49,7 @@ const ExercisePage = () => {
   return (
     <>
       {!loggedIn ? <RedirectLoginPage/> :
-      <div className="min-h-screen bg-gray-100 py-10">
+      <div className="min-h-screen w-full bg-gray-100 py-10">
         <div className="container mx-auto px-6">
           {/* Search Bar */}
           <form onSubmit={handleSubmit} className="mb-5 flex items-center space-x-4">
@@ -78,7 +78,7 @@ const ExercisePage = () => {
                   {/* Exercise Image */}
                   <div className="relative h-56">
                     <img
-                      src={exercise.image || "/images/default_exercise.png"} // Use a fallback image if missing
+                      src={exercise.image || "/images/arm_leg_exercise.png"} // Use a fallback image if missing
                       alt={exercise.name}
                       className="w-full h-full object-cover opacity-90"
                     />
