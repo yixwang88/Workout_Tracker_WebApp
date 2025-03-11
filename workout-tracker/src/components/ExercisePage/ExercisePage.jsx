@@ -61,7 +61,7 @@ const ExercisePage = () => {
   };
 
   useEffect(() => {
-    // fetchExercises();
+    fetchExercises();
   }, [search]);
 
   const handleSubmit = (e) => {
