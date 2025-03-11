@@ -3,7 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 
 
-const exercises = [
+const exerci = [
   {
     title: "Arms Exercises",
     workouts: ["Bicep Curl", "Triceps Dips", "Hammer Curl", "Concentration Curl"],
@@ -41,7 +41,7 @@ const ExercisePage = () => {
       if (!response.ok) throw new Error("Failed to fetch exercises");
 
       const data = await response.json();
-      setExercises(data.data);
+      setExercises(data);
       console.log(data);
 
     } catch (error) {
@@ -90,7 +90,7 @@ const ExercisePage = () => {
 
             {/* Exercise Cards Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            {exercises.length > 0 ? (
+            {exercises.length? (
               exercises.map((exercise) => (
                 <div
                   key={exercise.exerciseId}
@@ -98,7 +98,7 @@ const ExercisePage = () => {
                 >
                   {/* Exercise Image */}
                   <img
-                    src={exercise.image} // To Do: Add default image
+                    src={exercise.gifUrl} // To Do: Add default image
                     alt={exercise.title} // 
                     className="absolute left-[96px] top-[24px] w-[468px] h-[526px] object-cover opacity-80"
                   />

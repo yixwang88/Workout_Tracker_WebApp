@@ -104,12 +104,18 @@ app.post('/api/login', async (req, res) => {
   }
 })
 app.get('/api/exercise', async (req, res) => {
-  try {
-    const muscle = req.query.search || "triceps"; 
-    const response = await fetch(`https://exercisedb-api.vercel.app/api/v1/exercises/autocomplete?search=${muscle}`, {
-      method: 'GET',
+  const url = 'https://exercisedb.p.rapidapi.com/exercises/target/';
+  const muscle = req.query.search || 'triceps'; 
+  const search = `${url}${encodeURIComponent(muscle)}`;
+  const options = {
+	method: 'GET',
+	headers: {
+		'x-rapidapi-key': process.env.RAPID_KEY,
+		'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
+	}}
 
-    });
+  try {
+    const response = await fetch(search, options);
 
     if (!response.ok) throw new Error(`API request failed: ${response.status}`);
 
