@@ -124,7 +124,7 @@ const WorkoutPage = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [activeWorkout, setActiveWorkout] = useState([]);
 
-  const { user } = useSelector((state) => state.auth.user)
+  const { user } = useSelector((state) => state.auth)
   const loggedIn = user?.email
 
     return (

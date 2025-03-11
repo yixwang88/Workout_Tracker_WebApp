@@ -13,6 +13,7 @@ function Navbar() {
   const navigate = useNavigate()
 
   const loggedIn = user?.email
+  console.log(user)
 
   const handleLogin = () => {
     if (loggedIn) {

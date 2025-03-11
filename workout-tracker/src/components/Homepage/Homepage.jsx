@@ -2,6 +2,7 @@ import React from "react"
 import { FaArrowRightLong } from "react-icons/fa6";
 import { FaDumbbell } from "react-icons/fa6";
 import { TbTreadmill } from "react-icons/tb";
+import { Link } from "react-router-dom";
 
 function Homepage() {
 
@@ -50,7 +51,7 @@ function Homepage() {
             <h1 className="text-7xl font-bold">Lift More!</h1>
             <p>Transform your body and mind through the power of fitness.</p>
             <button className="w-fit p-4 flex items-center gap-4 hover:cursor-pointer">
-              <p>Join Now</p>
+              <Link to='/login'><p>Join Now</p></Link>
               <FaArrowRightLong />
             </button>
           </div>

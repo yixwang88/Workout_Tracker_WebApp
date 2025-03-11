@@ -71,8 +71,8 @@ const CurrentWorkout = function () {
 ];
 
   return (
-      <div className="max-w-3xl mx-auto">
-        <div className="flex justify-start gap-10 items-end mt-10 mb-5">
+      <div className="max-w-3xl mx-auto mb-10">
+        <div className="flex justify-between gap-10 items-end mt-10 mb-5">
           <h1 className="text-3xl font-bold w-[30%]">{workoutTitle}</h1>
           <p className="text-lg">{getFormattedTime(time)}</p>
           <button className={`text-lg rounded-full px-5 py-1 hover:cursor-pointer
@@ -85,7 +85,7 @@ const CurrentWorkout = function () {
             <li key={exIndex}>
               <p className="text-xl mb-3">{exercise.name}</p>
               {new Array(parseInt(exercise.sets)).fill('').map((_, setIndex) => (
-                <div className="flex items-center justify-stretch" key={setIndex}>
+                <div className="flex items-center justify-between" key={setIndex}>
                   <p className="w-[20%]">Set {setIndex + 1}</p>
                   <p className="w-[20%]">{exercise.weight}</p>
                   <p className="w-[20%]">{exercise.reps} reps</p>
@@ -96,7 +96,7 @@ const CurrentWorkout = function () {
           ))}
         </ul>
         <div className="flex mt-10">
-          <button className="mx-auto rounded-full py-2 px-6 text-2xl bg-blue-300">Log Workout</button>
+          <button className="mx-auto hover:cursor-pointer rounded-full py-2 px-6 text-2xl bg-blue-300">Log Workout</button>
         </div>
       </div>
   )
