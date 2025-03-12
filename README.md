@@ -20,7 +20,7 @@ npm install
 Running:
 
 ```
-npm run dev
+npm run start
 ```
 
 Ctrl + click or run the applicaiton on localhost:(provided port)
