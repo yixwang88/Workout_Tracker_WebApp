@@ -28,11 +28,15 @@ const addWorkoutSchema = z.object({
     reps: z.number({ message: "Number of reps is required." }).positive({ message: "The number of reps must be positive." }).int({ message: "Number of reps must be an integer." }),
 })
 
-const AddWorkoutModal = ({ modalIsOpen, onClose, onSave }) => {
+const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
 
     if (!modalIsOpen) return null;
 
     const [workout, setWorkout] = useState([]);
+
+    if (loadedWorkout) {
+        setWorkout(loadedWorkout);
+    }
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: zodResolver(addWorkoutSchema)
