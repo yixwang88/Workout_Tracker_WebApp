@@ -146,6 +146,7 @@ const WorkoutPage = () => {
                     <WorkoutList workoutList={workouts} />
 
                     <AddWorkoutModal
+                        loadedWorkouts={activeWorkout}
                         modalIsOpen={modalIsOpen}
                         onClose={() => setModalIsOpen(false)}
                         onSave={(data) => setActiveWorkout([...activeWorkout, data])}
