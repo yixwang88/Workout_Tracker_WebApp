@@ -3,6 +3,8 @@ import { FaArrowRight } from "react-icons/fa";
 import { Navigate, useNavigate } from "react-router-dom";
 import RedirectLoginPage from "../RedirectLoginPage/RedirectLoginPage";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+
 // import { useSelector } from "react-redux";
 
 
@@ -37,7 +39,9 @@ const exerci = [
 
 
 
-const ExercisePage = () => {
+const ExercisePage = (get) => {
+  const location = useLocation();
+  const getStarted = location.state?.target || "biceps"; 
   const data = useSelector((state) => state.auth)
   const loaded = data.loaded
   const navigate = useNavigate();
@@ -45,13 +49,13 @@ const ExercisePage = () => {
   const loggedIn = user?.email
 
   const [exercises, setExercises] = useState([]);
-  const [search, setSearch] = useState("biceps");
+  const [search, setSearch] = useState(getStarted);
   const [input, setInput] = useState("");
-
+  console.log("stae",getStarted)
 
   const fetchExercises = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/exercise?search=${search}`);
+      const response = await fetch(`https://cs342-pixel-panthers.onrender.com/api/exercise?search=${search}`);
       if (!response.ok) throw new Error("Failed to fetch exercises");
 
       const data = await response.json();

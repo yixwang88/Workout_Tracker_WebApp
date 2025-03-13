@@ -1,8 +1,12 @@
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import RedirectLoginPage from "../RedirectLoginPage/RedirectLoginPage";
+import { FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 
 const GetStarted = (exercises) => {
+    const navigate = useNavigate();
     const location = useLocation();
     const { exercise } = location.state;
     const { user } = useSelector((state) => state.auth)
@@ -39,7 +43,15 @@ const GetStarted = (exercises) => {
                                         ))}
                                     </p>
                                 </div>
+                                
                             </div>
+                            <button
+                                    onClick={() => navigate(`/exercise`, { state: { target: exercise.target } })}
+                                    className="flex items-center space-x-2 text-blue-600 font-medium hover:underline"
+                                >
+                                    <span>Back to Exercises</span>
+                                    <FaArrowRight />
+                                </button>
                         </div>
                     </div>
                 </div>
