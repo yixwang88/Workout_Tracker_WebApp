@@ -126,10 +126,20 @@ const WorkoutPage = () => {
 
     const { user } = useSelector((state) => state.auth)
     const loggedIn = user?.email
-    const loaded = data.loaded
 
-    useEffect(() => {
+    const openModal = () => {
+        if(!modalIsOpen) {
+            setModalIsOpen(true);
+        }
+    }
 
+
+    const editWorkout = (workout) => {
+        console.log(`passed in workout name: ${workout.name}`);
+        console.log(`passed in workout list: ${workout.list}`);
+        setActiveWorkout(workout.list);
+        openModal();
+        console.log(`active workout: ${activeWorkout[0].name}`);
     }
 
     return (
@@ -143,14 +153,18 @@ const WorkoutPage = () => {
                     </div>
                     <button className="btn1 basis-1/2" onClick={() => setActiveWorkout(workouts)}>Populate Workout</button>
 
-                    <WorkoutList workoutList={workouts} />
+                    <WorkoutList 
+                        workoutList={workouts}
+                        onEdit={(workout) => editWorkout(workout)}
+                        onDelete={(workout) => setWorkoutList(workoutList.filter((w) => w.id !== workout.id))}                    
+                    />
 
-                    <AddWorkoutModal
+                    { modalIsOpen && <AddWorkoutModal
                         loadedWorkouts={activeWorkout}
                         modalIsOpen={modalIsOpen}
                         onClose={() => setModalIsOpen(false)}
                         onSave={(data) => setActiveWorkout([...activeWorkout, data])}
-                    />
+                    />}
                 </div>)
             }
         </>

@@ -34,9 +34,13 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
 
     const [workout, setWorkout] = useState([]);
 
-    if (loadedWorkout) {
-        setWorkout(loadedWorkout);
-    }
+    useEffect(() => {
+        if (loadedWorkout) {
+            setWorkout(loadedWorkout);
+            console.log(`Loaded Workout: ${loadedWorkout}`);
+            console.log(`Workout: ${workout}`);
+        }
+    }, [loadedWorkout]);
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         resolver: zodResolver(addWorkoutSchema)

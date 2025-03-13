@@ -36,24 +36,17 @@ const workout1 = [
 
 
 
-function WorkoutCard({ workout, name, id }) {
+function WorkoutCard({ workout, name, id, onEdit, onDelete }) {
 
-    const editWorkout = (id) => {
-        console.log(`edit ${id} workout.`);
-    }
-
-    const deleteWorkout = (id) => {
-        console.log(`delete ${id} workout.`);
-    }
 
     return (
         <div className="workout-card">
             <div className="flex justify-center items-center gap-2">
                 <h1 className="center basis">{name}</h1>
-                <button className="btn1" onClick={() => editWorkout(id)}>
+                <button className="btn1" onClick={() => onEdit(id)}>
                     <img src={editIcon} alt="edit" className="icon" />
                 </button>
-                <button className="btn2" onClick={() => deleteWorkout(id)}>x</button>
+                <button className="btn2" onClick={() => onDelete(id)}>x</button>
 
             </div>
             {workout.map((exercise, index) => (
