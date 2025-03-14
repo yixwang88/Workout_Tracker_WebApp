@@ -18,10 +18,12 @@ const modalStyle = {
         top: "50%",
         left: "50%",
         transform: "translate(-50%, -50%)",
+        maxHeight: "80vh",
+        overflowY: "auto",
     },
 };
 
-const addWorkoutSchema = z.object({
+const exerciseSchema = z.object({
     name: z.string({ message: "Exercise name is required." }).min(1, { message: "Exercise name is required." }),
     weight: z.number({ message: "Weight is required." }).positive({ message: "Weight must be positive." }),
     sets: z.number({ message: "Number of sets is required." }).positive({ message: "The number of sets must be positive." }).int({ message: "Number of sets must be an integer." }),
@@ -33,22 +35,27 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
     if (!modalIsOpen) return null;
 
     const [workout, setWorkout] = useState([]);
+    const [workoutType, setWorkoutType] = useState("Anaerobic");
 
     useEffect(() => {
-        if (loadedWorkout) {
+        if (modalIsOpen && loadedWorkout) {
             setWorkout(loadedWorkout);
             console.log(`Loaded Workout: ${loadedWorkout}`);
             console.log(`Workout: ${workout}`);
         }
-    }, [loadedWorkout]);
+    }, [modalIsOpen, loadedWorkout]);
+
+    const handleWorkoutTypeChange = (e) => {
+        setWorkoutType(e.target.value);
+    }
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
-        resolver: zodResolver(addWorkoutSchema)
+        resolver: zodResolver(exerciseSchema)
     });
 
     const addExercise = (data) => {
         console.log(`data: ${data}`)
-        setWorkout([...workout, data]);
+        setWorkout((prev) => [...prev, data]);
         console.log(workout)
         reset();
     }
@@ -87,19 +94,20 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
                         <div>
                             <h1>Workout Type</h1>
                         </div>
-                        <select className="flex justify-center">
+                        <select className="flex justify-center" value={workoutType} onChange={handleWorkoutTypeChange}>
                             <option value="Anaerobic">Anaerobic</option>
                             <option value="aerobic">Aerobic</option>
                         </select>
                     </div>
-
                     {/* Separator */}
-                    <div className="separator">
+                    < div className="separator">
                         <div className="border"></div>
                     </div>
 
+
+
                     {workout.map((exercise, index) => (
-                        <li key={exercise.name} className="exercise-card">
+                        <li key={exercise.name} className="exercise-card no-bullets">
                             <div className="container clickable-card">
                                 <div className="flex">
                                     <div className="basis-1/16">
@@ -165,7 +173,9 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
                             </div>
                         </form>
                     </div>
+
                     <Toaster />
+
 
 
 
@@ -178,15 +188,15 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
                                 </button>
                             </li>
                             <li className="basis-16">
-                                <button className="btn2">
+                                <button className="btn2" onClick={() => onSubmit(workout)}>
                                     <div className="submit-text">Submit</div>
                                 </button>
                             </li>
                         </ul>
                     </div>
                 </div>
-            </Modal>
-        </div>
+            </Modal >
+        </div >
     )
 }
 
