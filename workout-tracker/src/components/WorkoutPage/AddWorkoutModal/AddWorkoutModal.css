@@ -70,6 +70,10 @@
     padding-bottom: 8px;
 }
 
+.workout-modal .no-bullets {
+    list-style-type: none;
+}
+
 .workout-modal .pop-up-info h1 {
     padding: 0px 0px;
     font-size: 32px;

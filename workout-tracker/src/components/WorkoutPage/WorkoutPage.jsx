@@ -133,6 +133,12 @@ const WorkoutPage = () => {
         }
     }
 
+    const closeModal = () => {
+        if(modalIsOpen) {
+            setModalIsOpen(false);
+        }
+    }
+
 
     const editWorkout = (workout) => {
         console.log(`passed in workout name: ${workout.name}`);
@@ -162,7 +168,7 @@ const WorkoutPage = () => {
                     { modalIsOpen && <AddWorkoutModal
                         loadedWorkouts={activeWorkout}
                         modalIsOpen={modalIsOpen}
-                        onClose={() => setModalIsOpen(false)}
+                        onClose={() => closeModal()}
                         onSave={(data) => setActiveWorkout([...activeWorkout, data])}
                     />}
                 </div>)
