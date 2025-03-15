@@ -1,0 +1,7 @@
+.navbar .li {
+    color: var(--text-color);
+}
+
+.navbar {
+    background-color: var(--navbar-color);
+}

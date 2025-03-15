@@ -6,15 +6,17 @@ import Homepage from "./components/Homepage/Homepage"
 import PlanPage from "./components/PlanPage/PlanPage.jsx"
 import ExercisePlan from './components/ExercisePage/ExercisePage.jsx'
 import WorkoutPage from "./components/WorkoutPage/WorkoutPage.jsx"
+import ThemePage from "./components/ThemePage/ThemePage.jsx"
 import CurrentWorkout from "./components/CurrentWorkout/CurrentWorkout.jsx"
 import PathNotFound from "./components/PathNotFound/pathNotFound.jsx"
 import GetStarted from "./components/ExercisePage/GetStarted.jsx"
 import { Toaster } from "react-hot-toast"
+import { ThemeProvider } from "./contexts/ThemeContext"
 
 function App() {
 
   return (
-    <>
+    <ThemeProvider>
       <Toaster />
       <Navbar />
       <Routes>
@@ -25,9 +27,10 @@ function App() {
         <Route path="/exercise/get-started" element={<GetStarted/>}/>
         <Route path='/add-workout' element={<WorkoutPage/>}/>
         <Route path="/current-workout" element={<CurrentWorkout/>} />
+        <Route path='/theme' element={<ThemePage/>}/>
         <Route path="/*" element={<PathNotFound/>}></Route>
       </Routes>
-    </>
+    </ThemeProvider>
   );
 }
 

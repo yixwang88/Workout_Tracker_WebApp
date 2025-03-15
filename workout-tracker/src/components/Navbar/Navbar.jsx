@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
 import { useNavigate } from "react-router-dom";
+import './Navbar.css';
 
 function Navbar() {
 
@@ -41,11 +42,15 @@ function Navbar() {
     {
       name: 'Workouts',
       routerLink: '/add-workout'
+    },
+    {
+      name: 'Theme',
+      routerLink: '/theme'
     }
   ]
 
   return (
-    <div className="sticky top-0 bg-white">
+    <div className="navbar sticky top-0 bg-white">
       <div className="flex items-center justify-around max-w-7xl py-4 m-auto">
         <img
           className="shrink-0 w-[59px] h-[52px] relative"

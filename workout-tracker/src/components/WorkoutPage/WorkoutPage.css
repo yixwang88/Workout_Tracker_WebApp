@@ -28,7 +28,7 @@
 }
 
 .workout-page .border {
-    border: 1px solid var(--lightText);
+    border: 1px solid var(--text-color);
 }
 
 .workout-page .btn1 {
@@ -38,7 +38,7 @@
     background-color: var(--bgdtitle);
     border-style: solid;
     border-radius: 10px;
-    border: 1px solid var(--lightText);
+    border: 1px solid var(--text-color);
     cursor: pointer;
     &:hover {
         background-color: var(--Btn1Hover);
@@ -68,7 +68,7 @@
     background-color: var(--Btn1);
     border-style: solid;
     border-radius: 10px;
-    border: 1px solid var(--lightText);
+    border: 1px solid var(--text-color);
     cursor: pointer;
     &:hover {
         background-color: var(--Btn1Hover);
@@ -123,11 +123,11 @@
     padding: 8px 16px;
     box-sizing: border-box;
     font-size: small;
-    color: var(--lightText);
+    color: var(--text-color);
     font-weight: normal;
     border-style: solid;
     border-radius: 10px;
-    border: 1px solid var(--lightText);
+    border: 1px solid var(--text-color);
     width: 100%;
 }
 
@@ -136,17 +136,17 @@
     margin: 2px 0px;
     box-sizing: border-box;
     font-size: small;
-    color: var(--lightText);
+    color: var(--text-color);
     font-weight: normal;
     border-style: solid;
     border-radius: 10px;
-    border: 1px solid var(--lightText);
+    border: 1px solid var(--text-color);
     width: 100%;
 }
 
 .workout-page .input-section input:focus {
     outline: none;
-    border: 2px solid var(--lightText);
+    border: 2px solid var(--text-color);
 }
 
 .workout-page .add-exercise {
