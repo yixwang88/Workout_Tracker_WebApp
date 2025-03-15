@@ -19,7 +19,7 @@ const PlanPage = function () {
     return<>
         {!loaded ? <RedirectLoginPage/> :<>
             {modalOpen && <AddPlanModal toggleModal={toggleModal} />}
-            <div className="flex gap-4 box-border h-screen flex-col grow bg-[#FAFAFA] p-10">
+            <div className="flex gap-4 box-border h-screen flex-col grow bg-(--bg-color) p-10">
                 <TopBar date={dateFilter} onSetDate={setDateFilter} toggleModal={toggleModal} />
                 <Planner date={dateFilter} />
             </div>

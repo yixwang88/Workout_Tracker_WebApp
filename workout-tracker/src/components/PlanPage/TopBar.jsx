@@ -7,24 +7,24 @@ function TopBar({date, onSetDate, toggleModal}) {
         {/* Left buttons */}
         <div className="flex flex-row gap-2">
             {/* Add Plan button */}
-            <button onClick={toggleModal} className="rounded-lg bg-black text-white p-1 hover:cursor-pointer">Add Plan</button>
+            <button onClick={toggleModal} className="rounded-lg p-1 hover:cursor-pointer">Add Plan</button>
 
             {/* Month Selector */}
             <DatePicker
                 selected={date}
                 onChange={onSetDate}
-                className="rounded-lg bg-white border border-[#B9B9B9] text-[#898989] p-1 hover:cursor-pointer"
+                className="rounded-lg bg-(--bg-color) border border-[#B9B9B9] p-1 hover:cursor-pointer"
             />
 
             {/* Filter button */}
-            <button className="rounded-lg bg-white border border-[#B9B9B9] text-[#898989] p-1 hover:cursor-pointer">Filter</button>
+            <button className="rounded-lg bg-(--bg-color) border border-[#B9B9B9] p-1 hover:cursor-pointer">Filter</button>
             <Link to="/current-workout">
-              <button className="px-2 rounded-lg bg-black text-white p-1 hover:cursor-pointer">Current Workout</button>
+              <button className="px-2 rounded-lg p-1 hover:cursor-pointer">Current Workout</button>
             </Link>
         </div>
 
         {/* Search bar */}
-        <div className="bg-white border rounded-lg border-solid border-[#B9B9B9] p-1">
+        <div className="bg-(--bg-color) border rounded-lg border-solid border-[#B9B9B9] p-1">
             <input placeholder="Search Task" className="text-xs h-full outline-none"></input>
         </div>
     </div>
