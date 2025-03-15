@@ -122,13 +122,13 @@ const workouts = [
 
 
 const WorkoutPage = () => {
-    // A workout is a list of exercises
-    const [workoutList, setWorkoutList] = useState([{}]);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [activeWorkout, setActiveWorkout] = useState([]);
-
     const { user } = useSelector((state) => state.auth)
     const loggedIn = user?.email
+
+    // A workout is a list of exercises
+    const [workoutList, setWorkoutList] = useState(user.customWorkouts);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [activeWorkout, setActiveWorkout] = useState([]);
 
     const openModal = () => {
         if(!modalIsOpen) {

@@ -23,14 +23,14 @@ mongoose.connect(process.env.DATABASE_URL)
 // Define the schema for custom workouts
 const customWorkoutSchema = new mongoose.Schema({
   title: { type: String, required: true, unique: true },
-  AnerobicExercises: [{
+  anaerobicExercises: [{
     id: { type: Number, required: true, unique: true },
     name: { type: String, required: true},
     weight: { type: String, required: true },
     sets: { type: Number, required: true },
     reps: { type: Number, required: true },
   }],
-  AerobicExercises: [{
+  aerobicExercises: [{
     id: { type: Number, required: true, unique: true },
     name: { type: String, required: true },
     minutes: { type: Number, required: true },
@@ -42,7 +42,19 @@ const customWorkoutSchema = new mongoose.Schema({
 // Define the user schema and model
 const workoutSchema = new mongoose.Schema({
   title: {type: String, required: true},
-  workoutInfo: {type: String, required: true},
+  anaerobicExercises: [{
+    id: { type: Number, required: true, unique: true },
+    name: { type: String, required: true},
+    weight: { type: String, required: true },
+    sets: { type: Number, required: true },
+    reps: { type: Number, required: true },
+  }],
+  aerobicExercises: [{
+    id: { type: Number, required: true, unique: true },
+    name: { type: String, required: true },
+    minutes: { type: Number, required: true },
+    intensity: { type: String, required: true },
+  }],
   status: {
     type: String,
     enum: ['incomplete', 'complete', 'failed'],
@@ -58,17 +70,12 @@ const taskSchema = new mongoose.Schema({
 })
 
 const userSchema = new mongoose.Schema({
-
   email: {type: String, required: true, unique: true},
   name: {type: String, required: true},
   password: {type: String, required: true},
   tasks: [taskSchema],
-  customWorkouts: [customWorkoutSchema]
-
-//   email: { type: String, required: true, unique: true },
-//   name: { type: String, required: true },
-//   password: { type: String, required: true }
-// >>>>>>> origin/dynamic-exercises
+  customWorkouts: [customWorkoutSchema],
+  workouts: [workoutSchema],
 });
 
 // Password validation utility function
@@ -177,22 +184,21 @@ app.post('/api/create_task', async (req, res) => {
   }
 })
 
-app.post('api/add_workout', async (req, res) => {
+app.put('/api/add_custom_workout', async (req, res) => {
   try {
-    const user = await UserModel.findOne({ email: req.body.email })
-    if (!user) {
-      return res.status(400).json({ message: "User not found" })
-    }
-
-
+    const user = await User.findOne({ "email": req.body.email })
+    user.customWorkouts.push(req.body.newCustomWorkout)
+    user.markModified('customWorkouts')
+    await user.save()
 
   } catch (error) {
     console.error("Unknown error: ", error)
     return res.status(500).json({ message: "Server error" })
   }
+  return res.status(204).json({messge: "updated succesfully"})
 })
 
-app.get('api/get_custom_workouts', async (req, res) => {
+app.get('/api/get_custom_workouts', async (req, res) => {
   try {
     const user = await UserModel.findOne({ email: req.body.email })
     if (!user) {

@@ -1,7 +1,11 @@
 import "./CurrentWorkout.css"
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const CurrentWorkout = function () {
+
+  const { user } = useSelector((state) => state.auth)
+  const loggedIn = user?.email
 
   const [time, setTime] = useState(0)
   const [isActive, setIsActive] = useState(false)

@@ -4,6 +4,8 @@ const initialUserState = {
   name: '',
   email: '',
   tasks: [],
+  customWorkouts: [],
+  workouts: [],
 }
 
 const initialState = {

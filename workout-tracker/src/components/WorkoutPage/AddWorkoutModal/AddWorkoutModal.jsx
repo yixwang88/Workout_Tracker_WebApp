@@ -8,6 +8,10 @@ import { Toaster, toast } from 'react-hot-toast';
 import Modal from "react-modal"
 import editIcon from "../edit_icon.png"
 import { set } from 'mongoose';
+import { useDispatch } from "react-redux";
+import { addCustomWorkout } from "../../../store/slices/authSlice.js"
+import { useSelector } from 'react-redux';
+
 
 Modal.setAppElement("#modal-root");
 
@@ -48,10 +52,14 @@ const workoutSchema = z.object({
 });
 
 const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.auth)
 
     if (!modalIsOpen) return null;
 
+    const [exerciseCount, setExerciseCount] = useState(0)
     const [workout, setWorkout] = useState([]);
+    const [title, setTitle] = useState("")
     const [workoutType, setWorkoutType] = useState("Anaerobic");
     const [aerobicExercises, setAerobicExercises] = useState([]);
     const [anaerobicExercises, setAnaerobicExercises] = useState([]);
@@ -82,12 +90,14 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
     }, [workoutType, reset]);
 
     const addExercise = (data) => {
+        data.id = exerciseCount
         setWorkout((prev) => [...prev, data]);
-        // if (workoutType === "Aerobic") {
-        // } else if (workoutType === "Anaerobic") {
-        //     addAnaerobicExercise((prev) => [...prev, data]);
-        // }
-        console.log(`Added exercise: ${data.name}`);
+        if (workoutType === "Aerobic") {
+          setAerobicExercises(prev => [...prev, data])
+        } else if (workoutType === "Anaerobic") {
+          setAnaerobicExercises((prev) => [...prev, data]);
+        }
+        setExerciseCount(exerciseCount + 1)
         reset();
     }
 
@@ -103,18 +113,30 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
         });
     }, [errors]);
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         if (workout.length === 0) {
             toast.error("Please add at least one exercise to the workout.");
             return;
         }
 
-        onSave({
-            id: Math.floor(Math.random() * 1000),
-            name: data.workoutName,
-            workoutType,
-            exercises: workoutType === "Aerobic" ? aerobicExercises : anaerobicExercises,
-        });
+        let newCustomWorkout = {
+          title,
+          aerobicExercises,
+          anaerobicExercises,
+        }
+        const res = await fetch('http://localhost:3000/api/add_custom_workout', {
+          method: "PUT",
+          headers: { "Content-Type": "application/json"},
+          body: JSON.stringify({email: user.email, newCustomWorkout})
+        })
+        if (!res.ok) {
+          console.error("Could not update database")
+        } else {
+          dispatch(addCustomWorkout(newCustomWorkout))
+          console.log(user.customWorkouts)
+        }
+
+        onSave(newCustomWorkout)
         reset();
         onClose();
     }
@@ -150,7 +172,8 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
                             name="name"
                             placeholder="Workout Name"
                             type="text"
-                            {...register("workoutName")}>
+                            onChange={(e) => {setTitle(e.target.value)}}
+                            >
                         </input>
 
                     </div>
@@ -191,7 +214,7 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
                                                     <b>{exercise.name}</b>
                                                     <button className="btn3" onClick={() => onDeleteExercise(exercise.name)}>x</button>
                                                 </div>
-                                                <p>{exercise.time + " minutes at an intensity of " + exercise.intensity}</p>
+                                                <p>{exercise.minutes + " minutes at an intensity of " + exercise.intensity}</p>
                                             </div>
                                         ) : (
                                             <div>
