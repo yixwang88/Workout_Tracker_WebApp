@@ -50,7 +50,7 @@ function Navbar() {
   ]
 
   return (
-    <div className="navbar sticky top-0 bg-white">
+    <div className="navbar sticky top-0">
       <div className="flex items-center justify-around max-w-7xl py-4 m-auto">
         <img
           className="shrink-0 w-[59px] h-[52px] relative"
@@ -67,7 +67,7 @@ function Navbar() {
         </ul>
 
         <button onClick={handleLogin}>
-          <div className="hover:cursor-pointer bg-neutral-800 text-white px-4 py-2 rounded-lg">
+          <div className="hover:cursor-pointer bg-(--button-bg) text-(--button-text) px-4 py-2 rounded-lg">
             {loggedIn ? 'Logout' : 'Login'}
           </div>
         </button>

@@ -3,16 +3,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: white;
+    background: var(--background-color);
     padding: 30px;
   }
   .container {
     position: relative;
     max-width: 850px;
     width: 100%;
-    background: #fff;
+    background: var(--background-color);
     padding: 40px 30px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0px 20px 5px rgba(0, 0, 0, 0.2);
     perspective: 2700px;
   }
   .container .cover {
@@ -84,7 +84,8 @@
   .container .forms {
     height: 100%;
     width: 100%;
-    background: #fff;
+    background: var(--background-color);
+
   }
   .container .form-content {
     display: flex;
@@ -99,7 +100,7 @@
     position: relative;
     font-size: 24px;
     font-weight: 500;
-    color: #333;
+    color: var(--text-color);
   }
   .forms .form-content .title:before {
     content: '';
@@ -147,7 +148,8 @@
   .forms .form-content .text {
     font-size: 14px;
     font-weight: 500;
-    color: #333;
+    color: var(--text-color);
+
   }
   .forms .form-content .text a {
     text-decoration: none;
@@ -156,11 +158,11 @@
     text-decoration: underline;
   }
   .forms .form-content .button {
-    color: #fff;
+    color: var(--text-color);
     margin-top: 40px;
   }
   .forms .form-content .button input {
-    color: #fff;
+    color: var(--text-color);
     background: #7d2ae8;
     border-radius: 6px;
     padding: 0;

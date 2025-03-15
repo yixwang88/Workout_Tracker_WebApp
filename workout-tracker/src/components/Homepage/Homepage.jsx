@@ -43,7 +43,7 @@ function Homepage() {
   ]
 
   return (
-    <>
+    <div className="text-(--text-color)">
       <div>
         <div className="flex items-center text-white h-[500px] bg-cover bg-no-repeat bg-center" style={{ backgroundImage: "url(/homepage/header.jpg" }}>
           <div className="w-[87.5%] m-auto flex flex-col gap-5">
@@ -64,11 +64,11 @@ function Homepage() {
             <ul className="flex flex-wrap">
               {detailCards.map((card, i) => (
                 <div className="w-1/2 flex flex-col gap-2 flex-none p-5" key={i}>
-                  <div className="flex items-center justify-center rounded-full bg-stone-100 w-10 h-10">
+                  <div className="flex items-center justify-center rounded-full w-10 h-10">
                     {card.icon}
                   </div>
                   <h3 className="font-semibold text-xl">{card.title}</h3>
-                  <p className="text-stone-500">{card.text}</p>
+                  <p className="">{card.text}</p>
                 </div>))}
             </ul>
             <div>
@@ -85,14 +85,14 @@ function Homepage() {
               <div className="flex flex-col gap-2" key={i}>
                 <img src={card.imgSrc} className="h-[400px] object-cover" />
                 <h3 className="text-xl font-semibold">{card.title}</h3>
-                <p className="text-stone-500">{card.text}</p>
+                <p className="">{card.text}</p>
               </div>))}
           </ul>
         </div>
         {/* <ContactPageHeader /> */}
         {/* <Footer /> */}
       </div>
-    </>
+    </div>
   )
 }
 

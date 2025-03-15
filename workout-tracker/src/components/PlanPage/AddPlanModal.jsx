@@ -34,7 +34,7 @@ function AddPlanModal({ toggleModal }) {
           title: 'Bicep Curls',
           workoutInfo: '4 sets, 8 reps, 30 lbs'
         }
-      ]
+      ],
     },
     {
       id: 1,
@@ -118,7 +118,7 @@ function AddPlanModal({ toggleModal }) {
     <>
     <Toaster />
     <div className="absolute w-[100%] h-[100%] opacity-40 bg-black z-5"></div>
-      <div className="rounded-xl p-5 absolute left-[50%] top-[50%] max-w-[600px] -translate-x-1/2 -translate-y-1/2 w-[60%] bg-white z-10">
+      <div className="rounded-xl p-5 absolute left-[50%] top-[50%] max-w-[600px] -translate-x-1/2 -translate-y-1/2 w-[60%] bg-(--bg-color) z-10">
         <div className="flex justify-between items-center mb-5">
           <h2 className="text-xl font-bold">Add Plan</h2>
           <button onClick={toggleModal} className="p-2 font-bold hover:cursor-pointer">X</button>

@@ -34,7 +34,7 @@ function Planner({date}) {
     const data = useSelector((state) => state.auth)
     const user = data.user
 
-    return <div className={`flex flex-row rounded-lg bg-white grow overflow-scroll`}>
+    return <div className={`flex flex-row rounded-lg grow overflow-scroll`}>
         { /* Hour labels */}
         <div className="min-w-[6rem] text-center h-full flex flex-col">
             <div className="min-h-[4rem]"/>

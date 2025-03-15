@@ -37,3 +37,8 @@ button {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
+.react-dropdown-select-item {
+  background-color: var(--bg-color);
+  color:L var(--text-color);
+}
