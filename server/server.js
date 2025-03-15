@@ -19,6 +19,26 @@ mongoose.connect(process.env.DATABASE_URL)
   .then(() => console.log("Connected to MongoDB...")) //if there is a connection
   .catch((error) => console.error("Could not connect to MongoDB...", error)); //if there is no connection
 
+
+// Define the schema for custom workouts
+const customWorkoutSchema = new mongoose.Schema({
+  title: { type: String, required: true, unique: true },
+  AnerobicExercises: [{
+    id: { type: Number, required: true, unique: true },
+    name: { type: String, required: true},
+    weight: { type: String, required: true },
+    sets: { type: Number, required: true },
+    reps: { type: Number, required: true },
+  }],
+  AerobicExercises: [{
+    id: { type: Number, required: true, unique: true },
+    name: { type: String, required: true },
+    minutes: { type: Number, required: true },
+    intensity: { type: String, required: true },
+  }]
+
+})
+
 // Define the user schema and model
 const workoutSchema = new mongoose.Schema({
   title: {type: String, required: true},
@@ -43,6 +63,7 @@ const userSchema = new mongoose.Schema({
   name: {type: String, required: true},
   password: {type: String, required: true},
   tasks: [taskSchema],
+  customWorkouts: [customWorkoutSchema]
 
 //   email: { type: String, required: true, unique: true },
 //   name: { type: String, required: true },
@@ -58,6 +79,7 @@ function validatePassword(password) {
 
 // Create the user model
 const User = mongoose.model("User", userSchema);
+
 
 app.post('/api/signup', async (req, res) => {
   const { name, email, password } = req.body;
@@ -152,6 +174,34 @@ app.post('/api/create_task', async (req, res) => {
   catch(error) {
     console.error("Unknown error: ", error)
     return res.status(500).json({ message: "Server error" })
+  }
+})
+
+app.post('api/add_workout', async (req, res) => {
+  try {
+    const user = await UserModel.findOne({ email: req.body.email })
+    if (!user) {
+      return res.status(400).json({ message: "User not found" })
+    }
+
+
+
+  } catch (error) {
+    console.error("Unknown error: ", error)
+    return res.status(500).json({ message: "Server error" })
+  }
+})
+
+app.get('api/get_custom_workouts', async (req, res) => {
+  try {
+    const user = await UserModel.findOne({ email: req.body.email })
+    if (!user) {
+      return res.status(400).json({ message: "User not found" })
+    }
+    return res.status(200).json(user.customWorkouts);
+  } catch (error) {
+    console.error("api/get_workout error: ", error)
+    return res.status(500).json({ message: "get workouts error" })
   }
 })
 

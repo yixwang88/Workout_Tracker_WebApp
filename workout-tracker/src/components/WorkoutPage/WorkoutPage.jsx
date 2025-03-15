@@ -1,7 +1,7 @@
 
 import "./WorkoutPage.css";
 import Popup from "./AddWorkoutModal/AddWorkoutModal";
-import { useRef, useState } from "react";
+import { act, useEffect, useRef, useState } from "react";
 import AddWorkoutModal from "./AddWorkoutModal/AddWorkoutModal";
 import WorkoutCard from "./WorkoutCard/WorkoutCard";
 import WorkoutList from "./WorkoutList/WorkoutList"
@@ -12,7 +12,8 @@ const workouts = [
     {
         id: 1,
         name: "Workout 1",
-        list:
+        workoutType: "Anaerobic",
+        exercises:
             [
                 {
                     id: 1,
@@ -47,7 +48,8 @@ const workouts = [
     {
         id: 2,
         name: "Workout 2",
-        list:
+        workoutType: "Anaerobic",
+        exercises:
             [
                 {
                     id: 1,
@@ -82,7 +84,8 @@ const workouts = [
     {
         id: 3,
         name: "Workout 3",
-        list:
+        workoutType: "Anaerobic",
+        exercises:
             [
                 {
                     id: 1,
@@ -124,29 +127,71 @@ const WorkoutPage = () => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [activeWorkout, setActiveWorkout] = useState([]);
 
-  const { user } = useSelector((state) => state.auth)
-  const loggedIn = user?.email
+    const { user } = useSelector((state) => state.auth)
+    const loggedIn = user?.email
+
+    const openModal = () => {
+        if(!modalIsOpen) {
+            setModalIsOpen(true);
+        }
+    }
+
+    useEffect(() => {
+
+    }, [workoutList]);
+
+    const handleSaveWorkout = (workout) => {
+        console.log(`workout saved name: ${workout.name}`);
+        console.log(`workout saved list: ${workout.exercises}`);
+        setWorkoutList((prev) => [...prev, workout]);
+        if(modalIsOpen) {
+            setModalIsOpen(false);
+        }
+    }
+
+    const closeModal = () => {
+        if(modalIsOpen) {
+            setModalIsOpen(false);
+        }
+        setActiveWorkout([]);
+    }
+
+
+    const editWorkout = (workout) => {
+        console.log(`passed in workout name: ${workout.name}`);
+        console.log(`passed in workout list: ${workout.exercises}`);
+        setActiveWorkout(workout);
+        openModal();
+        console.log(`active workout: ${activeWorkout}`);
+    }
 
     return (
         <>
-          {!loggedIn ? <RedirectLoginPage/> :
-            (<div className="workout-page relative flex flex-col items-center gap-2">
-                <div className="banner flex items-center justify-center relative">
+            {!loggedIn ? <RedirectLoginPage /> :
+                (<div className="workout-page relative flex flex-col items-center gap-2">
+                    <div className="banner flex items-center justify-center relative">
 
-                    <h1 className="">Your Workouts</h1>
-                    <button className="btn3" onClick={() => setModalIsOpen(true)}>New Workout</button>
-                </div>
-                <button className="btn1 basis-1/2" onClick={() => setActiveWorkout(workouts)}>Populate Workout</button>
+                        <h1 className="">Your Workouts</h1>
+                        <button className="btn3" onClick={() => setModalIsOpen(true)}>New Workout</button>
+                    </div>
+                    <button className="btn1 basis-1/2" onClick={() => setActiveWorkout(workouts)}>Populate Workout</button>
 
-                <WorkoutList workoutList={workouts} />
+                    <WorkoutList 
+                        workoutList={ workoutList ? workoutList : [] }
+                        onEdit={(workout) => editWorkout(workout)}
+                        onDelete={(workout) => setWorkoutList(workoutList.filter((w) => w.id !== workout.id))}                    
+                    />
 
-                <AddWorkoutModal
-                    modalIsOpen={modalIsOpen}
-                    onClose={() => setModalIsOpen(false)}
-                    onSave={(data) => setActiveWorkout([...activeWorkout, data])}
-                />
-            </div>)
-          } 
+
+                    { modalIsOpen && <AddWorkoutModal
+                        loadedWorkout={activeWorkout}
+                        modalIsOpen={modalIsOpen}
+                        onClose={closeModal}
+                        onSave={handleSaveWorkout}
+                        onRequestClose={closeModal}
+                    />}
+                </div>)
+            }
         </>
     );
 };
