@@ -1,7 +1,7 @@
 
 import "./WorkoutPage.css";
 import Popup from "./AddWorkoutModal/AddWorkoutModal";
-import { useEffect, useRef, useState } from "react";
+import { act, useEffect, useRef, useState } from "react";
 import AddWorkoutModal from "./AddWorkoutModal/AddWorkoutModal";
 import WorkoutCard from "./WorkoutCard/WorkoutCard";
 import WorkoutList from "./WorkoutList/WorkoutList"
@@ -12,7 +12,8 @@ const workouts = [
     {
         id: 1,
         name: "Workout 1",
-        list:
+        workoutType: "Anaerobic",
+        exercises:
             [
                 {
                     id: 1,
@@ -47,7 +48,8 @@ const workouts = [
     {
         id: 2,
         name: "Workout 2",
-        list:
+        workoutType: "Anaerobic",
+        exercises:
             [
                 {
                     id: 1,
@@ -82,7 +84,8 @@ const workouts = [
     {
         id: 3,
         name: "Workout 3",
-        list:
+        workoutType: "Anaerobic",
+        exercises:
             [
                 {
                     id: 1,
@@ -133,19 +136,29 @@ const WorkoutPage = () => {
         }
     }
 
+    const handleSaveWorkout = (workout) => {
+        setWorkoutList((prev) => [...prev, workout]);
+    }
+
     const closeModal = () => {
         if(modalIsOpen) {
             setModalIsOpen(false);
         }
     }
 
+    useEffect(() => {
+        if (activeWorkout.length > 0 && !modalIsOpen) {
+            setModalIsOpen(true);
+        }
+    }, [activeWorkout]);
+
 
     const editWorkout = (workout) => {
         console.log(`passed in workout name: ${workout.name}`);
-        console.log(`passed in workout list: ${workout.list}`);
+        console.log(`passed in workout list: ${workout.exercises}`);
         setActiveWorkout(workout.list);
         openModal();
-        console.log(`active workout: ${activeWorkout[0].name}`);
+        console.log(`active workout: ${activeWorkout}`);
     }
 
     return (
@@ -157,7 +170,7 @@ const WorkoutPage = () => {
                         <h1 className="">Your Workouts</h1>
                         <button className="btn3" onClick={() => setModalIsOpen(true)}>New Workout</button>
                     </div>
-                    <button className="btn1 basis-1/2" onClick={() => setActiveWorkout(workouts)}>Populate Workout</button>
+                    <button className="btn1 basis-1/2" onClick={() => setActiveWorkout(workouts[0])}>Populate Workout</button>
 
                     <WorkoutList 
                         workoutList={workouts}
@@ -166,10 +179,10 @@ const WorkoutPage = () => {
                     />
 
                     { modalIsOpen && <AddWorkoutModal
-                        loadedWorkouts={activeWorkout}
+                        loadedWorkout={activeWorkout}
                         modalIsOpen={modalIsOpen}
-                        onClose={() => closeModal()}
-                        onSave={(data) => setActiveWorkout([...activeWorkout, data])}
+                        onClose={closeModal}
+                        onSave={handleSaveWorkout}
                     />}
                 </div>)
             }
