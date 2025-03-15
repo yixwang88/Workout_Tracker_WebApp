@@ -4,7 +4,7 @@ const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const mongoose = require("mongoose");
-const request = require('request');
+
 
 
 const PORT = process.env.PORT || 3000;
@@ -128,7 +128,7 @@ app.post('/api/login', async (req, res) => {
 app.get('/api/exercise', async (req, res) => {
   const url = 'https://exercisedb.p.rapidapi.com/exercises/target/';
   const muscle = req.query.search || 'triceps'; 
-  const search = `${url}${encodeURIComponent(muscle)}`;
+  const search = `${url}${encodeURIComponent(muscle)}?limit=2`;
   const options = {
 	method: 'GET',
 	headers: {

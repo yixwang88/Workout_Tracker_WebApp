@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { Navigate, useNavigate } from "react-router-dom";
+import RedirectLoginPage from "../RedirectLoginPage/RedirectLoginPage";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+
+// import { useSelector } from "react-redux";
 
 
 
@@ -32,22 +37,25 @@ const exerci = [
   },
 ];
 
-import RedirectLoginPage from "../RedirectLoginPage/RedirectLoginPage";
-import { useSelector } from "react-redux";
 
-const ExercisePage = () => {
+
+const ExercisePage = (get) => {
+  const location = useLocation();
+  const getStarted = location.state?.target || "biceps"; 
+  const data = useSelector((state) => state.auth)
+  const loaded = data.loaded
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth)
   const loggedIn = user?.email
 
   const [exercises, setExercises] = useState([]);
-  const [search, setSearch] = useState("biceps");
+  const [search, setSearch] = useState(getStarted);
   const [input, setInput] = useState("");
-
+  console.log("stae",getStarted)
 
   const fetchExercises = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/api/exercise?search=${search}`);
+      const response = await fetch(`https://cs342-pixel-panthers.onrender.com/api/exercise?search=${search}`);
       if (!response.ok) throw new Error("Failed to fetch exercises");
 
       const data = await response.json();
@@ -131,7 +139,7 @@ const ExercisePage = () => {
                   {/* Get Started Button */}
                   <div className="relative z-10 mt-4">
                     <button
-                      onClick={() => navigate(`/exercise/get-started`)}
+                      onClick={() => navigate(`/exercise/get-started`, {state: {exercise}})}
                       className="flex items-center space-x-2 text-blue-600 font-medium hover:underline"
                     >
                       <span>Get Started</span>
