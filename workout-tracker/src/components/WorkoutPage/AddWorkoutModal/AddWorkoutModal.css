@@ -13,11 +13,12 @@
 
 .workout-modal .separator {
     padding: 32px 0px;
+    border: var(--button-bg);
     width: 100%;
 }
 
 .workout-modal .border {
-    border: 1px solid var(--lightText);
+    border: 1px solid var(--button-bg);
 }
 
 .workout-modal .icon {
@@ -41,24 +42,24 @@
 
 .workout-modal .btn2 {
     font-size: medium;
-    color:white;
+    color: var(--text-color);
     padding: 12px 24px;
-    background-color: var(--Btn2);
+    background-color: var(--btn2);
     border-style: solid;
     border-radius: 10px;
-    box-shadow: 0px 2px 2px lightgray;
+    border: 1px solid var(--text-color);
     &:hover {
-        background-color: var(--Btn2Hover);
+        background-color: var(--button-hover);
     }
 }
 
 .workout-modal .btn3 {
     font-size: medium;
-    color:white;
+    color:var(--text-color);
     padding: 1px 4px;
     position: absolute;
     right: 10px;
-    background-color: var(--Btn2);
+    background-color: var(--btn2);
     border-style: solid;
     border-radius: 10px;
     box-shadow: 0px 2px 2px lightgray;
@@ -69,7 +70,7 @@
 
 .workout-modal .btn4 {
     font-size: medium;
-    color:white;
+    color:var(--text-color);
     padding: 1px 4px;
     position: absolute;
     right: 20px;
@@ -98,6 +99,7 @@
 }
 
 .workout-modal .container {
+    background-color: var(--bg-color);
     padding: 8px 16px;
     border-radius: 5px;
     border-style: solid;
@@ -121,7 +123,7 @@
     padding: 8px 0px;
     font-size: small;
     font-weight: normal;
-    color: var(--lightText);
+    color: var(--text-color);
 }
 
 
@@ -135,11 +137,11 @@
     padding: 8px 16px;
     box-sizing: border-box;
     font-size: small;
-    color: var(--lightText);
+    color: var(--text-color);
     font-weight: normal;
     border-style: solid;
     border-radius: 10px;
-    border: 1px solid var(--lightText);
+    border: 1px solid var(--text-color);
     width: 100%;
 }
 
@@ -148,17 +150,17 @@
     margin: 2px 0px;
     box-sizing: border-box;
     font-size: small;
-    color: var(--lightText);
+    color: var(--text-color);
     font-weight: normal;
     border-style: solid;
     border-radius: 10px;
-    border: 1px solid var(--lightText);
+    border: 1px solid var(--text-color);
     width: 100%;
 }
 
 .workout-modal .input-section input:focus {
     outline: none;
-    border: 2px solid var(--lightText);
+    border: 2px solid var(--text-color);
 }
 
 .workout-modal .add-exercise {

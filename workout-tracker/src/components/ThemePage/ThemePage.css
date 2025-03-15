@@ -1,0 +1,22 @@
+.theme-page .btn {
+    font-size: medium;
+    color:white;
+    padding: 12px 24px;
+    background-color: var(--Btn2);
+    border-style: solid;
+    border-radius: 10px;
+    cursor: pointer;
+    &:hover {
+        background-color: var(--Btn2Hover);
+    }
+
+}
+
+.theme-page h1 {
+    color: var(--text-color);
+    font-size: 40px;
+    font-weight: bold;
+    padding: 20px 20px;
+    background-color: var(--bgcolor);
+    border-radius: 15px;
+}
