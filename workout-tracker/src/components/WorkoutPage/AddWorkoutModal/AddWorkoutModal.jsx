@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Toaster, toast } from 'react-hot-toast';
 import Modal from "react-modal"
+import editIcon from "../edit_icon.png"
 import { set } from 'mongoose';
 
 Modal.setAppElement("#modal-root");
@@ -68,6 +69,7 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
         setWorkoutType(e.target.value);
         console.log(`Workout Type: ${e.target.value}`);
         console.log(`Workout Type: ${workoutType}`);
+        reset();
     }
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
@@ -117,15 +119,27 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
         onClose();
     }
 
+    const onCloseModal = () => {
+        setAnaerobicExercises([]);
+        setAerobicExercises([]);
+        reset();
+        onClose();
+    }
+
+    const onDeleteExercise = (name) => {
+        setWorkout((prev) => prev.filter((exercise) => exercise.name !== name));
+    }
+
+
     return (
         <div className="workout-modal flex items-center" >
-            <Modal className="workout-modal relative z-0" isOpen={modalIsOpen} style={modalStyle} onRequestClose={onClose}>
+            <Modal className="workout-modal relative z-0" isOpen={modalIsOpen} style={modalStyle} onRequestClose={onCloseModal}>
                 <div className="container flex-none basis-1/3">
                     {/* Workout header */}
                     <div className="pop-up-info">
                         <div className="flex justify-between">
                             <h1>Add Workout</h1>
-                            <button className="btn1 flex px-4" onClick={onClose}>Close</button>
+                            <button className="btn1 flex px-4" onClick={onCloseModal}>Close</button>
                         </div>
                         <p>Please input information for your exercise.</p>
                     </div>
@@ -158,6 +172,10 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
                     </div>
 
 
+
+
+
+
                     {/* Exercise list */}
                     <ul>
                         {workout.map((exercise, index) => (
@@ -169,12 +187,18 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
                                         </div>
                                         {workoutType === "Aerobic" ? (
                                             <div>
-                                                <b>{exercise.name}</b>
+                                                <div className="flex items-center gap-2">
+                                                    <b>{exercise.name}</b>
+                                                    <button className="btn3" onClick={() => onDeleteExercise(exercise.name)}>x</button>
+                                                </div>
                                                 <p>{exercise.time + " minutes at an intensity of " + exercise.intensity}</p>
                                             </div>
                                         ) : (
                                             <div>
-                                                <b>{exercise.name}</b>
+                                                <div className="flex items-center gap-2">
+                                                    <b>{exercise.name}</b>
+                                                    <button className="btn3" onClick={() => onDeleteExercise(exercise.name)}>x</button>
+                                                </div>
                                                 <p>{exercise.sets + " sets of " + exercise.reps + " starting at " + exercise.weight}</p>
                                             </div>
 
@@ -289,7 +313,7 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
                     <div className="px-16">
                         <ul className="flex flex-row justify-end gap-4">
                             <li className="basis-16">
-                                <button onClick={onClose} className="btn1">
+                                <button onClick={onCloseModal} className="btn1">
                                     <div className="cancel-text">Cancel</div>
                                 </button>
                             </li>

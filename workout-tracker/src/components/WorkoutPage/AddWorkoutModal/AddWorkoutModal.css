@@ -20,6 +20,12 @@
     border: 1px solid var(--lightText);
 }
 
+.workout-modal .icon {
+    width: 12px;
+    height: 12px;
+    display: block;
+}
+
 .workout-modal .btn1 {
     font-size: medium;
     color:black;
@@ -45,6 +51,37 @@
         background-color: var(--Btn2Hover);
     }
 }
+
+.workout-modal .btn3 {
+    font-size: medium;
+    color:white;
+    padding: 1px 4px;
+    position: absolute;
+    right: 10px;
+    background-color: var(--Btn2);
+    border-style: solid;
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px lightgray;
+    &:hover {
+        background-color: var(--Btn2Hover);
+    }
+}
+
+.workout-modal .btn4 {
+    font-size: medium;
+    color:white;
+    padding: 1px 4px;
+    position: absolute;
+    right: 20px;
+    background-color: var(--Btn2);
+    border-style: solid;
+    border-radius: 10px;
+    box-shadow: 0px 2px 2px lightgray;
+    &:hover {
+        background-color: var(--Btn2Hover);
+    }
+}
+
 
 .workout-modal .close-btn {
     max-width: 48;

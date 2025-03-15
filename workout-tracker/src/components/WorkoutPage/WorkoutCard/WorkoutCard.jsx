@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types"
-import editIcon from "./edit_icon.png"
+import editIcon from "../edit_icon.png"
 import "./WorkoutCard.css"
 
 const workout1 = [

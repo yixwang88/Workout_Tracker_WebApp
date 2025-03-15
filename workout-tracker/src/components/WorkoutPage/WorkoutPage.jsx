@@ -136,27 +136,31 @@ const WorkoutPage = () => {
         }
     }
 
+    useEffect(() => {
+
+    }, [workoutList]);
+
     const handleSaveWorkout = (workout) => {
+        console.log(`workout saved name: ${workout.name}`);
+        console.log(`workout saved list: ${workout.exercises}`);
         setWorkoutList((prev) => [...prev, workout]);
+        if(modalIsOpen) {
+            setModalIsOpen(false);
+        }
     }
 
     const closeModal = () => {
         if(modalIsOpen) {
             setModalIsOpen(false);
         }
+        setActiveWorkout([]);
     }
-
-    useEffect(() => {
-        if (activeWorkout.length > 0 && !modalIsOpen) {
-            setModalIsOpen(true);
-        }
-    }, [activeWorkout]);
 
 
     const editWorkout = (workout) => {
         console.log(`passed in workout name: ${workout.name}`);
         console.log(`passed in workout list: ${workout.exercises}`);
-        setActiveWorkout(workout.list);
+        setActiveWorkout(workout);
         openModal();
         console.log(`active workout: ${activeWorkout}`);
     }
@@ -170,19 +174,21 @@ const WorkoutPage = () => {
                         <h1 className="">Your Workouts</h1>
                         <button className="btn3" onClick={() => setModalIsOpen(true)}>New Workout</button>
                     </div>
-                    <button className="btn1 basis-1/2" onClick={() => setActiveWorkout(workouts[0])}>Populate Workout</button>
+                    <button className="btn1 basis-1/2" onClick={() => setActiveWorkout(workouts)}>Populate Workout</button>
 
                     <WorkoutList 
-                        workoutList={workouts}
+                        workoutList={ workoutList ? workoutList : [] }
                         onEdit={(workout) => editWorkout(workout)}
                         onDelete={(workout) => setWorkoutList(workoutList.filter((w) => w.id !== workout.id))}                    
                     />
+
 
                     { modalIsOpen && <AddWorkoutModal
                         loadedWorkout={activeWorkout}
                         modalIsOpen={modalIsOpen}
                         onClose={closeModal}
                         onSave={handleSaveWorkout}
+                        onRequestClose={closeModal}
                     />}
                 </div>)
             }

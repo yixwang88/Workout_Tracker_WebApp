@@ -3,12 +3,12 @@ import './WorkoutList.css';
 import PropTypes from "prop-types"
 import WorkoutCard from "../WorkoutCard/WorkoutCard";
 
-export default function WorkoutList({ workoutList, onEdit, onDelete }) {
-    console.log(`Workout List ${workoutList[0].name} ${workoutList[0].exercises[0].name}`);
+export default function WorkoutList({ workouts, onEdit, onDelete }) {
+    console.log(`workoutList: ${workouts}`);
     return (
         <div className='WorkoutList flex flex-wrap gap-x-5 gap-y-5'>
-            {workoutList.length > 0 ? (
-                workoutList.map((b) => (
+            {workouts && workouts.length > 0 ? (
+                workouts.map((b) => (
                     <WorkoutCard 
                         key={b.id}
                         workout={b.exercises}
@@ -25,5 +25,5 @@ export default function WorkoutList({ workoutList, onEdit, onDelete }) {
 }
 
 WorkoutList.propTypes = {
-    workoutList: PropTypes.array
+    workouts: PropTypes.array
 };
