@@ -1,8 +1,8 @@
-# Workout Tracker
+
 Clone this repo and cd into workout-tracker to get started.
 
 ## About
-This application...
+This application allows users to create a custom workout routine tailored to fitness level and goals. It also allows users to track workouts, sets, create plans, and much more.
 
 ### Prerequisites
 Ensure that Node.js is installed https://nodejs.org/en/download/.
@@ -28,8 +28,8 @@ Ctrl + click or run the applicaiton on localhost:(provided port)
 | ------------- | ------------- |
 | / | Home page |
 | /plan | Calendar view of workout plan |
-| /stats | ***Implementation pending based on time***  |
-| /exercise | List of saved/suggested exercises | 
+| /exercise | List of searched exercises | 
+| /exercise/get-started | more info on selected exercise |
 | /add-workout | Area to add a new workout with specific exercises |
 | /theme | Theme page |
 | /login | login page |
