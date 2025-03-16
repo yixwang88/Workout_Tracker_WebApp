@@ -32,7 +32,7 @@ function PlannerTask({task}) {
     let exercises = [...task.workout.anaerobicExercises, ...task.workout.aerobicExercises]
     exercises.forEach(exercise => {
         exercisesTotal += 1
-        if(exercise.status == 1) {
+        if(exercise.status == "complete") {
             exercisesDone += 1
         }
     });

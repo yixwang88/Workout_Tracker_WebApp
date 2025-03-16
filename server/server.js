@@ -189,6 +189,25 @@ app.post('/api/create_task', async (req, res) => {
   }
 })
 
+app.post('/api/update_task', async (req, res) => {
+  try {
+    await User.updateOne({ "email": req.body.email },
+      { $pull: { 
+        tasks: { _id: req.body.taskId }}
+      }
+    )
+    await User.updateOne({ "email": req.body.email },
+      { $push: { tasks: req.body.updatedTask }}
+    )
+
+    return res.status(204).json({message: "Updated task successfully"})
+
+  } catch (error) {
+    console.error("Unknown error: ", error)
+    return res.status(500).json({ message: "Server error" })
+  }
+})
+
 app.post('/api/add_custom_workout', async (req, res) => {
   try {
     const user = await User.findOne({ "email": req.body.email })

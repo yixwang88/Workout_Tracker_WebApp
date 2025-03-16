@@ -35,6 +35,16 @@ const authSlice = createSlice({
     addTask: (state, action) => {
       state.user.tasks = action.payload
     },
+    updateTask: (state, action) => {
+      let updatedTasks = state.user.tasks.map(task => {
+        if (task._id == action.payload.updatedId) {
+          return action.payload.updatedTask
+        } else {
+          return task
+        }
+      })
+      state.user.tasks = updatedTasks
+    },
     addCustomWorkout: (state, action) => {
       state.user.customWorkouts = action.payload
     },
@@ -47,6 +57,6 @@ const authSlice = createSlice({
   }
 })
 
-export const {login, logout, loader, addTask, addCustomWorkout, deleteCustomWorkout, setCurrentTaskId} = authSlice.actions
+export const {login, logout, loader, addTask, addCustomWorkout, deleteCustomWorkout, setCurrentTaskId, updateTask} = authSlice.actions
 
 export default authSlice.reducer
