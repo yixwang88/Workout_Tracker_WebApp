@@ -40,11 +40,9 @@ function PlannerTask({task}) {
 
     function statusIcon(status) {
         switch(status) {
-            case 1:
+            case "complete":
                 return <FaCheckCircle color="#0b0" className="row-span-2 m-1" />
-            case 2:
-                return <FaTimesCircle color="#b00" className="row-span-2 m-1" />
-            default:
+            case "incomplete":
                 return <FaRegCircle className="row-span-2 m-1" />
         }
     }
