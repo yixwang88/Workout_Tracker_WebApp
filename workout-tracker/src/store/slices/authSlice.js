@@ -45,6 +45,10 @@ const authSlice = createSlice({
       })
       state.user.tasks = updatedTasks
     },
+    deleteTask: (state, action) => {
+      let updatedTasks = state.user.tasks.filter(task => task._id !== action.payload)
+      state.user.tasks = updatedTasks
+    },
     addCustomWorkout: (state, action) => {
       state.user.customWorkouts = action.payload
     },
@@ -57,6 +61,6 @@ const authSlice = createSlice({
   }
 })
 
-export const {login, logout, loader, addTask, addCustomWorkout, deleteCustomWorkout, setCurrentTaskId, updateTask} = authSlice.actions
+export const {login, logout, loader, addTask, addCustomWorkout, deleteTask, deleteCustomWorkout, setCurrentTaskId, updateTask} = authSlice.actions
 
 export default authSlice.reducer

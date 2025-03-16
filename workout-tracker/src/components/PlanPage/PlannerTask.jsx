@@ -23,7 +23,7 @@ const WORKOUT_INCOMPLETE = "incomplete"
 const WORKOUT_COMPLETE = "complete"
 const WORKOUT_FAILED = "failed"
 
-function PlannerTask({task}) {
+function PlannerTask({task, removeTask}) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -54,13 +54,18 @@ function PlannerTask({task}) {
     const dayPercent = (totalMinutes / 1440) * 100
 
     const onTaskClick = (task) => {
-      console.log(task._id)
       dispatch(setCurrentTaskId(task._id))
       navigate("/current-workout")
     }
 
     return <div onClick={() => onTaskClick(task)} className="hover:cursor-pointer">
-        <h1 className="text-lg font-bold">{task.title}</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-lg font-bold">{task.title}</h1>
+          <button onClick={(e) => {
+            e.stopPropagation()
+            removeTask(task)
+          }} className="round-lg px-2">Remove</button>
+        </div>
         {task.workout.anaerobicExercises.map(function(exercise, index) {
             return <div key={index} className="grid content-center justify-center grid-cols-[min-content_1fr]">
                 {statusIcon(exercise.status)}
