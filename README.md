@@ -31,6 +31,7 @@ Ctrl + click or run the applicaiton on localhost:(provided port)
 | /stats | ***Implementation pending based on time***  |
 | /exercise | List of saved/suggested exercises | 
 | /add-workout | Area to add a new workout with specific exercises |
+| /theme | Theme page |
 | /login | login page |
 
 ## Team Info
