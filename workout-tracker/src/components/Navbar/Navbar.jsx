@@ -50,7 +50,7 @@ function Navbar() {
   ]
 
   return (
-    <div className="navbar sticky top-0">
+    <div className="navbar sticky top-0 z-20">
       <div className="flex items-center justify-around max-w-7xl py-4 m-auto">
         <img
           className="shrink-0 w-[59px] h-[52px] relative"

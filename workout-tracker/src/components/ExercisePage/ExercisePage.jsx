@@ -28,11 +28,12 @@ const ExercisePage = (get) => {
   const [exercises, setExercises] = useState([]);
   const [search, setSearch] = useState(getStarted);
   const [input, setInput] = useState("");
+  const [page, setPage] = useState(0);
   console.log("stae", getStarted)
 
   const fetchExercises = async () => {
     try {
-      const response = await fetch(`https://cs342-pixel-panthers.onrender.com/api/exercise?search=${search}`);
+      const response = await fetch(`https://cs342-pixel-panthers.onrender.com/api/exercise?search=${search}&page=${page}`);
       if (!response.ok) throw new Error("Failed to fetch exercises");
 
       const data = await response.json();
@@ -72,7 +73,7 @@ const ExercisePage = (get) => {
     <>
       {!loggedIn ? <RedirectLoginPage /> :
         <div className="min-h-screen w-full bg-(--bg-color)  py-10">
-          <div className="container mx-auto px-6 overflow-hidden">
+          <div className="mx-auto max-w-[1200px] px-6">
             {/* Search Bar */}
             <form onSubmit={handleSubmit} className="mb-5 flex items-center space-x-4">
               <label htmlFor="muscle" className="text-lg font-medium">Search Muscle:</label>
@@ -93,12 +94,13 @@ const ExercisePage = (get) => {
             </form>
 
             {/* Exercise Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-50 overflow-x-auto">
+            <div className="flex flex-wrap gap-y-10">
               {exercises.length ? (
                 exercises.map((exercise) => (
                   <div
                     key={exercise.name}
-                    className="relative bg-(--bg-color) w-full sm:w-[340px] h-[420px] rounded-2xl shadow-lg overflow-hidden p-6 mx-auto transition-transform hover:scale-105"
+                    style={{"box-shadow": "0 0px 10px -2px rgba(0, 0, 0, 0.2)"}}
+                    className="relative bg-(--bg-color) w-[33%] sm:w-[340px] h-[420px] rounded-2xl overflow-hidden p-6 mx-auto transition-transform hover:scale-105"
                   >
                     {/* Exercise Image */}
                     <div className="relative h-56">
