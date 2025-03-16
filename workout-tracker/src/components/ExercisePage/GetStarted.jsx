@@ -14,15 +14,15 @@ const GetStarted = (exercises) => {
     return (
         <>
             {!loggedIn ? <RedirectLoginPage /> :
-                <div className="min-h-screen bg-gray-900 text-white">
-                    <div className="bg-gray-100 text-black min-h-screen py-10">
+                <div className="min-h-screen bg-(--bg-color) text-(--text-color)">
+                    <div className="bg-(--bg-color) bg-opacity-30 text-(--text-color) min-h-screen py-10">
                         <div className="container mx-auto px-6">
                             {/* Title */}
                             <h2 className="text-3xl font-bold text-center">{exercise.name}</h2>
 
                             <div className="mt-10 flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-12">
                                 {/* Exercise Image */}
-                                <div className="bg-white rounded-lg shadow-lg p-4">
+                                <div className="bg-(--bg-color) rounded-lg shadow-lg p-4">
                                     <img
                                         src={exercise.gifUrl} // Replace with actual exercise image
                                         // alt="Bench Press" 
@@ -35,7 +35,7 @@ const GetStarted = (exercises) => {
                                 </div>
 
                                 {/* Instructions Box */}
-                                <div className="bg-white shadow-lg rounded-lg p-6 w-full md:w-1/2 border border-gray-300">
+                                <div className="bg-(--bg-color) shadow-lg rounded-lg p-6 w-full md:w-1/2 border border-gray-300">
                                     <h3 className="text-xl font-bold mb-2">Instructions:</h3>
                                     <p className="text-lg">
                                         {exercise.instructions.map((instruction) => (

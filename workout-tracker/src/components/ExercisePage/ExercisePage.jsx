@@ -71,7 +71,7 @@ const ExercisePage = (get) => {
   return (
     <>
       {!loggedIn ? <RedirectLoginPage /> :
-        <div className="min-h-screen w-full bg-gray-100 py-10">
+        <div className="min-h-screen w-full bg-(--bg-color)  py-10">
           <div className="container mx-auto px-6">
             {/* Search Bar */}
             <form onSubmit={handleSubmit} className="mb-5 flex items-center space-x-4">
@@ -80,9 +80,9 @@ const ExercisePage = (get) => {
                 id="muscle"
                 value={input}
                 onChange={handleChange}
-                className="border p-2 rounded-md w-60"
+                className="border p-2 rounded-md w-60 bg-(--bg-color)"
               >
-                <option value="">Select a muscle</option>
+                <option value="" className="bg-(--bg-color)">Select a muscle</option>
                 {exerciseOptions.map((muscle) => (
                   <option key={muscle} value={muscle}>{muscle}</option>
                 ))}
@@ -93,12 +93,12 @@ const ExercisePage = (get) => {
             </form>
 
             {/* Exercise Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-50">
               {exercises.length ? (
                 exercises.map((exercise) => (
                   <div
                     key={exercise.name}
-                    className="relative bg-white w-full sm:w-[340px] h-[420px] rounded-2xl shadow-lg overflow-hidden p-6 mx-auto transition-transform hover:scale-105"
+                    className="relative bg-(--bg-color) w-full sm:w-[340px] h-[420px] rounded-2xl shadow-lg overflow-hidden p-6 mx-auto transition-transform hover:scale-105"
                   >
                     {/* Exercise Image */}
                     <div className="relative h-56">
@@ -107,20 +107,20 @@ const ExercisePage = (get) => {
                         alt={exercise.name}
                         className="w-full h-full object-cover opacity-90"
                       />
-                      <div className="absolute inset-0 bg-white opacity-60"></div>
+                      <div className="absolute inset-0 bg-(--bg-color) opacity-60"></div>
                     </div>
 
                     {/* Text Content */}
                     <div className="relative z-10 mt-4">
-                      <h3 className="text-2xl font-bold text-gray-900">{exercise.name}</h3>
-                      <p className="text-gray-700 mt-1">Target: {exercise.target || "General"}</p>
+                      <h3 className="text-2xl font-bold text-(--text-color)">{exercise.name}</h3>
+                      <p className="text-(--text-color) mt-1">Target: {exercise.target || "General"}</p>
                     </div>
 
                     {/* Get Started Button */}
                     <div className="relative z-10 mt-4">
                       <button
                         onClick={() => navigate(`/exercise/get-started`, { state: { exercise } })}
-                        className="flex items-center space-x-2 text-blue-600 font-medium hover:underline"
+                        className="flex items-center space-x-2 text-(--text-color) font-medium hover:underline"
                       >
                         <span>Get Started</span>
                         <FaArrowRight />
@@ -129,7 +129,7 @@ const ExercisePage = (get) => {
                   </div>
                 ))
               ) : (
-                <p className="text-gray-600 text-lg">No exercises found.</p>
+                <p className="text-(--text-color) text-lg">No exercises found.</p>
               )}
             </div>
           </div>
