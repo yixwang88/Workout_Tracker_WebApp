@@ -224,7 +224,7 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
                                                     <b>{exercise.name}</b>
                                                     <button className="btn3" onClick={() => onDeleteExercise(exercise.name)}>x</button>
                                                 </div>
-                                                <p>{exercise.sets + " sets of " + exercise.reps + " starting at " + exercise.weight}</p>
+                                                <p>{exercise.sets + " sets of " + exercise.reps + " starting at " + exercise.weight + " lbs"}</p>
                                             </div>
 
 

@@ -32,7 +32,7 @@ function WorkoutCard({ workout, onEdit, onDelete }) {
                                         <p className="basis-3/8">{`Sets: ${exercise.sets}`}</p>
                                         <p className="basis-4/8">{`Reps: ${exercise.reps}`}</p>
                                     </div>
-                                    <p>{"Starting at " + exercise.weight}</p>
+                                    <p>{"Starting at " + exercise.weight + " lbs."}</p>
                                   </>
                                 )}
                                 {type == "Aerobic" && (
