@@ -12,6 +12,7 @@
 }
 
 .workout-page .separator {
+    border-color: var(--lightText);
     padding: 32px 0px;
     width: 100%;
 }
