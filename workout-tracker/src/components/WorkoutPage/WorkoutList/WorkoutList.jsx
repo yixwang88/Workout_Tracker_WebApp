@@ -10,10 +10,10 @@ export default function WorkoutList({ workoutList, onEdit, onDelete }) {
             {workoutList && workoutList.length > 0 ? (
                 workoutList.map((b) => (
                     <WorkoutCard 
-                        key={b.id}
+                        key={b._id}
                         workout={b}
                         onEdit={() => onEdit(b)}
-                        onDelete={() => onDelete(b)}
+                        onDelete={(deletionId) => onDelete(deletionId)}
                     />
                 ))
             ) : (

@@ -4,7 +4,6 @@ import editIcon from "../edit_icon.png"
 import "./WorkoutCard.css"
 
 function WorkoutCard({ workout, onEdit, onDelete }) {
-  console.log(workout)
   const type = workout.anaerobicExercises.length > 0 ? "Anaerobic" : "Aerobic"
   const exercises = workout.anaerobicExercises.length > 0 ? workout.anaerobicExercises : workout.aerobicExercises
 
@@ -12,10 +11,10 @@ function WorkoutCard({ workout, onEdit, onDelete }) {
         <div className="workout-card">
             <div className="flex justify-center items-center gap-2">
                 <h1 className="center basis">{workout.title}</h1>
-                <button className="btn1" onClick={() => onEdit(id)}>
+                <button className="btn1" onClick={() => onEdit(workout._id)}>
                     <img src={editIcon} alt="edit" className="icon" />
                 </button>
-                <button className="btn2" onClick={() => onDelete(id)}>x</button>
+                <button className="btn2" onClick={() => onDelete(workout._id)}>x</button>
 
             </div>
             {exercises.map((exercise, index) => (

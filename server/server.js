@@ -198,6 +198,20 @@ app.put('/api/add_custom_workout', async (req, res) => {
   return res.status(204).json({messge: "updated succesfully"})
 })
 
+app.put('/api/delete_custom_workout', async (req, res) => {
+  try {
+    await User.updateOne({ "email": req.body.email },
+      { $pull: { 
+        customWorkouts: { _id: req.body.deletionId } } 
+      }
+    )
+  } catch (error) {
+    console.error("Unknown error: ", error)
+    return res.status(500).json({ message: "Server error" })
+  }
+  return res.status(204).json({messge: "updated succesfully"})
+})
+
 app.get('/api/get_custom_workouts', async (req, res) => {
   try {
     const user = await UserModel.findOne({ email: req.body.email })
