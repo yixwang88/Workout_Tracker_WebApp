@@ -1,5 +1,3 @@
-# :construction: WORK IN PROGRESS :construction:
-
 # Workout Tracker
 Clone this repo and cd into workout-tracker to get started.
 
