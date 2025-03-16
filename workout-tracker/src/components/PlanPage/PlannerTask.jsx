@@ -1,4 +1,7 @@
 import { FaCheckCircle, FaRegCircle, FaTimesCircle } from "react-icons/fa"
+import { useDispatch } from "react-redux"
+import {setCurrentTaskId} from "../../store/slices/authSlice.js" 
+import { useNavigate } from "react-router-dom"
 
 function makeWorkout(title, workoutInfo, status) {
     return {
@@ -21,7 +24,9 @@ const WORKOUT_COMPLETE = "complete"
 const WORKOUT_FAILED = "failed"
 
 function PlannerTask({task}) {
-  console.log(task._id)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
     let exercisesDone = 0
     let exercisesTotal = 0
     let exercises = [...task.workout.anaerobicExercises, ...task.workout.aerobicExercises]
@@ -50,7 +55,13 @@ function PlannerTask({task}) {
     const totalMinutes = (hours * 60) + minutes
     const dayPercent = (totalMinutes / 1440) * 100
 
-    return <div>
+    const onTaskClick = (task) => {
+      console.log(task._id)
+      dispatch(setCurrentTaskId(task._id))
+      navigate("/current-workout")
+    }
+
+    return <div onClick={() => onTaskClick(task)} className="hover:cursor-pointer">
         <h1 className="text-lg font-bold">{task.title}</h1>
         {task.workout.anaerobicExercises.map(function(exercise, index) {
             return <div key={index} className="grid content-center justify-center grid-cols-[min-content_1fr]">
