@@ -1,5 +1,5 @@
 
-Clone this repo and cd into workout-tracker to get started.
+Clone this repo and cd into cs342-pixel-panthers to get started.
 
 ## About
 This application allows users to create a custom workout routine tailored to fitness level and goals. It also allows users to track workouts, sets, create plans, and much more.
