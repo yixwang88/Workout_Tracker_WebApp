@@ -140,7 +140,7 @@ app.post('/api/login', async (req, res) => {
 app.get('/api/exercise', async (req, res) => {
   const url = 'https://exercisedb.p.rapidapi.com/exercises/target/';
   const muscle = req.query.search || 'triceps'; 
-  const search = `${url}${encodeURIComponent(muscle)}?limit=2`;
+  const search = `${url}${encodeURIComponent(muscle)}?limit=10`;
   const options = {
 	method: 'GET',
 	headers: {
