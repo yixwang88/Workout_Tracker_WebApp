@@ -1,7 +1,12 @@
 import PlannerTask, {makeTask, makeWorkout, WORKOUT_COMPLETE} from "./PlannerTask"
 import { useSelector } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux";
+import {setCurrentTaskId} from "../../store/slices/authSlice.js" 
 
 function Planner({date}) {
+  const dispatch = useDispatch
+
     function next30Days(date) {
         let arr = []
         for(let i=0; i < 30; i++) {
@@ -23,6 +28,10 @@ function Planner({date}) {
             arr.push(time)
         }
         return arr
+    }
+
+    const onTaskClick = (task) => {
+
     }
 
     const dayFormat = new Intl.DateTimeFormat(navigator.language, { weekday: "short" })
@@ -56,7 +65,7 @@ function Planner({date}) {
                         <b>{shortDateFormat.format(day)}</b>
                     </div>
 
-                    <div className="flex flex-row relative">
+                    <div className="flex flex-col gap-5 relative">
                         {user.tasks.map(function(value, index) {
                             const task = value
                             let taskDate = new Date(task.date)
@@ -65,7 +74,7 @@ function Planner({date}) {
                             if( !(taskDate.getTime() === day.getTime()) )
                                 return null
                             
-                            return <PlannerTask key={index} task={task} />
+                            return <PlannerTask key={index} task={task} onClick={onTaskClick(task)} />
                         })}
                     </div>
                 </div>

@@ -125,14 +125,16 @@ const AddWorkoutModal = ({ loadedWorkout, modalIsOpen, onClose, onSave }) => {
           anaerobicExercises,
         }
         const res = await fetch('http://localhost:3000/api/add_custom_workout', {
-          method: "PUT",
+          method: "POST",
           headers: { "Content-Type": "application/json"},
-          body: JSON.stringify({email: user.email, newCustomWorkout})
+          body: JSON.stringify({email: user.email, newCustomWorkout}),
         })
         if (!res.ok) {
           console.error("Could not update database")
         } else {
-          dispatch(addCustomWorkout(newCustomWorkout))
+          // console.log(res.body)
+          const resData = await res.json()
+          dispatch(addCustomWorkout(resData.updatedCustomWorkouts))
           console.log(user.customWorkouts)
         }
 

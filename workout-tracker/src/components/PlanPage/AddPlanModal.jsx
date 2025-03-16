@@ -12,6 +12,7 @@ function AddPlanModal({ toggleModal }) {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const {token, user} = useSelector((state) => state.auth)
 
   const hoursOptions = new Array(24).fill({}).map((option, index) => (
     {
@@ -20,38 +21,7 @@ function AddPlanModal({ toggleModal }) {
     }
   ))
 
-  const presets = [
-    {
-      id: 0,
-      name: 'Workout 1',
-      title: 'Workout 1',
-      workouts: [
-        {
-          title: 'Squats',
-          workoutInfo: '5 sets, 10 reps'
-        },
-        {
-          title: 'Bicep Curls',
-          workoutInfo: '4 sets, 8 reps, 30 lbs'
-        }
-      ],
-    },
-    {
-      id: 1,
-      name: 'Workout 2',
-      title: 'Workout 2',
-      workouts: [
-        {
-          title: 'Jumping Jacks',
-          workoutInfo: '5 sets, 25 reps'
-        },
-        {
-          title: 'Treadmill',
-          workoutInfo: '30 minutes'
-        }
-      ]
-    }
-  ];
+  let presets = user.customWorkouts
 
   const today = new Date()
   const todayDateOnly = new Date(today.getFullYear(), today.getMonth(), today.getDate())
@@ -60,8 +30,6 @@ function AddPlanModal({ toggleModal }) {
   const [endTime, setEndTime] = useState(hoursOptions[1])  
   const [workoutPreset, setWorkoutPreset] = useState(null)
   const [repeatAllWeek, setRepeatAllWeek] = useState(false)
-
-  const {token, user} = useSelector((state) => state.auth)
 
   const handleSubmit = async () => {
     if (startTime.id > endTime.id) {
@@ -77,14 +45,18 @@ function AddPlanModal({ toggleModal }) {
 
       toggleModal()
 
-      console.log(workoutPreset)
+      let workoutTask = {
+        title: workoutPreset.title,
+        aerobicExercises: workoutPreset.aerobicExercises,
+        anaerobicExercises: workoutPreset.anaerobicExercises
+      }
 
       const body = {
         token: token,
         task: {
-          "title": workoutPreset.name,
-          "date": startDate.toISOString(),
-          "workouts": workoutPreset.workouts,
+          workout: workoutTask,
+          title: workoutPreset.title,
+          date: startDate.toISOString(),
         }
       }
 
@@ -108,9 +80,11 @@ function AddPlanModal({ toggleModal }) {
             console.error("Error submitting task: ", await res.text())
             return
         }
+      } else {
+        const resData = await res.json()
+        dispatch(addTask(resData.userTasks))
       }
 
-      dispatch(addTask(body.task))
     }
   }
 
@@ -150,8 +124,9 @@ function AddPlanModal({ toggleModal }) {
         <div>
           <Select
               options={presets}
-              labelField="name"
-              valueField="id"
+              placeholder="Select workout preset..."
+              labelField="title"
+              valueField="_id"
               onChange={(preset) => setWorkoutPreset(preset[0])}
           />
           <input type="text"></input>
@@ -163,8 +138,8 @@ function AddPlanModal({ toggleModal }) {
         </div>
 
         <div className="flex justify-end">
-          <button type="button" onClick={toggleModal} class="hover:cursor-pointer text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancel</button>
-          <button type="button" onClick={handleSubmit} class="hover:cursor-pointer text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Submit</button>
+          <button type="button" onClick={toggleModal} className="hover:cursor-pointer text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Cancel</button>
+          <button type="button" onClick={handleSubmit} className="hover:cursor-pointer text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Submit</button>
         </div>
       </div>
 

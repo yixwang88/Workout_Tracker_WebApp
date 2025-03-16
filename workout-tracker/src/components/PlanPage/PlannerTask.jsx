@@ -21,15 +21,17 @@ const WORKOUT_COMPLETE = "complete"
 const WORKOUT_FAILED = "failed"
 
 function PlannerTask({task}) {
-    let workoutsDone = 0
-    let workoutsTotal = 0
-    task.workouts.forEach(workout => {
-        workoutsTotal += 1
-        if(workout.status == 1) {
-            workoutsDone += 1
+  console.log(task._id)
+    let exercisesDone = 0
+    let exercisesTotal = 0
+    let exercises = [...task.workout.anaerobicExercises, ...task.workout.aerobicExercises]
+    exercises.forEach(exercise => {
+        exercisesTotal += 1
+        if(exercise.status == 1) {
+            exercisesDone += 1
         }
     });
-    const percentage = workoutsDone / workoutsTotal
+    const percentage = exercisesDone / exercisesTotal
 
     function statusIcon(status) {
         switch(status) {
@@ -48,18 +50,25 @@ function PlannerTask({task}) {
     const totalMinutes = (hours * 60) + minutes
     const dayPercent = (totalMinutes / 1440) * 100
 
-    return <div className="absolute" style={{"top": `${dayPercent}%`}}>
+    return <div>
         <h1 className="text-lg font-bold">{task.title}</h1>
-        {task.workouts.map(function(workout, index) {
+        {task.workout.anaerobicExercises.map(function(exercise, index) {
             return <div key={index} className="grid content-center justify-center grid-cols-[min-content_1fr]">
-                {statusIcon(workout.status)}
-                <p>{workout.title}</p>
-                <p className="text-gray-500">{workout.workoutInfo}</p>
+                {statusIcon(exercise.status)}
+                <p>{exercise.name}</p>
+                <p className="text-gray-500">{`${exercise.sets} sets of ${exercise.reps} reps`}</p>
+            </div>
+        })}
+        {task.workout.aerobicExercises.map(function(exercise, index) {
+            return <div key={index} className="grid content-center justify-center grid-cols-[min-content_1fr]">
+                {statusIcon(exercise.status)}
+                <p>{exercise.name}</p>
+                <p className="text-gray-500">{`${exercise.minutes} min ${exercise.intensity} intensity`}</p>
             </div>
         })}
         <div className="flex flex-row content-center">
             <progress id="task-progress" value={percentage} max={1} className="rounded-full h-2 m-auto" />
-            <label for="task-progress">{Math.round(percentage * 100)}%</label>
+            <label htmlFor="task-progress">{Math.round(percentage * 100)}%</label>
         </div>
     </div>
 }

@@ -36,7 +36,6 @@ const customWorkoutSchema = new mongoose.Schema({
     minutes: { type: Number, required: true },
     intensity: { type: String, required: true },
   }]
-
 })
 
 // Define the user schema and model
@@ -48,25 +47,31 @@ const workoutSchema = new mongoose.Schema({
     weight: { type: String, required: true },
     sets: { type: Number, required: true },
     reps: { type: Number, required: true },
+    status: {
+      type: String,
+      enum: ['incomplete', 'complete', 'failed'],
+      required: true,
+      default: 'incomplete',
+    }
   }],
   aerobicExercises: [{
     id: { type: Number, required: true, unique: true },
     name: { type: String, required: true },
     minutes: { type: Number, required: true },
     intensity: { type: String, required: true },
-  }],
-  status: {
-    type: String,
-    enum: ['incomplete', 'complete', 'failed'],
-    required: true,
-    default: 'incomplete',
-  }
+    status: {
+      type: String,
+      enum: ['incomplete', 'complete', 'failed'],
+      required: true,
+      default: 'incomplete',
+    }
+  }]
 })
 
 const taskSchema = new mongoose.Schema({
   title: {type: String, required: true},
   date: {type: Date, required: true},
-  workouts: [workoutSchema],
+  workout: workoutSchema,
 })
 
 const userSchema = new mongoose.Schema({
@@ -176,7 +181,7 @@ app.post('/api/create_task', async (req, res) => {
 
     user.tasks.push(task)
     await user.save()
-    return res.status(201).json({ message: "Task created" })
+    return res.status(201).json({ message: "Task created", userTasks: user.tasks})
   }
   catch(error) {
     console.error("Unknown error: ", error)
@@ -184,18 +189,20 @@ app.post('/api/create_task', async (req, res) => {
   }
 })
 
-app.put('/api/add_custom_workout', async (req, res) => {
+app.post('/api/add_custom_workout', async (req, res) => {
   try {
     const user = await User.findOne({ "email": req.body.email })
     user.customWorkouts.push(req.body.newCustomWorkout)
     user.markModified('customWorkouts')
     await user.save()
 
+    return res.status(200).json({message: "updated succesfully", updatedCustomWorkouts: user.customWorkouts })
+
   } catch (error) {
     console.error("Unknown error: ", error)
     return res.status(500).json({ message: "Server error" })
   }
-  return res.status(204).json({messge: "updated succesfully"})
+
 })
 
 app.put('/api/delete_custom_workout', async (req, res) => {
@@ -209,7 +216,7 @@ app.put('/api/delete_custom_workout', async (req, res) => {
     console.error("Unknown error: ", error)
     return res.status(500).json({ message: "Server error" })
   }
-  return res.status(204).json({messge: "updated succesfully"})
+  return res.status(204).json({message: "updated succesfully"})
 })
 
 app.get('/api/get_custom_workouts', async (req, res) => {
