@@ -72,7 +72,7 @@ const ExercisePage = (get) => {
     <>
       {!loggedIn ? <RedirectLoginPage /> :
         <div className="min-h-screen w-full bg-(--bg-color)  py-10">
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-6 overflow-hidden">
             {/* Search Bar */}
             <form onSubmit={handleSubmit} className="mb-5 flex items-center space-x-4">
               <label htmlFor="muscle" className="text-lg font-medium">Search Muscle:</label>
@@ -93,7 +93,7 @@ const ExercisePage = (get) => {
             </form>
 
             {/* Exercise Cards Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-50">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-50 overflow-x-auto">
               {exercises.length ? (
                 exercises.map((exercise) => (
                   <div
