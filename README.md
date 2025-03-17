@@ -47,5 +47,9 @@ Notion: https://www.notion.so/1810e20b02c18162be0fc6f285ba2837?v=1810e20b02c1814
 
 https://docs.google.com/presentation/d/1ShqmIUpE2TeNnvnZiwFag4TVbDgUslWYBRi4YCxRY74/edit?usp=sharing
 
+## Link to Project Report 
+
+https://docs.google.com/document/d/1cxUiwHoClduWTVj1tuG0bgldUB57WJOi_Ois56BNMnI/edit?usp=sharing
+
 
 
