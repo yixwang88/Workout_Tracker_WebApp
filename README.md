@@ -1,3 +1,7 @@
+## Link to deployed application
+https://pixel-panthers-workout.netlify.app/
+
+## Get started
 
 Clone this repo and cd into cs342-pixel-panthers to get started.
 
@@ -38,4 +42,10 @@ Ctrl + click or run the applicaiton on localhost:(provided port)
 Figma: https://www.figma.com/design/Xg97HdIFJyuHGjPzxarTbw/Pixel-Panthers?node-id=0-1&t=3veIBDEyMVgqMgRN-1
 
 Notion: https://www.notion.so/1810e20b02c18162be0fc6f285ba2837?v=1810e20b02c1814abfea000cb7f79665&pvs=4
+
+## Link to team recordings
+
+https://docs.google.com/presentation/d/1ShqmIUpE2TeNnvnZiwFag4TVbDgUslWYBRi4YCxRY74/edit?usp=sharing
+
+
 
