@@ -1,6 +1,5 @@
-## 🏋️‍♂️ Get started
-
-Clone this repo and cd into it to get started.
+## 🏋️‍♂️ Link to deployed application
+https://pixel-panthers-workout.netlify.app/
 
 ## About
 This application was developed as part of a **group project** for a class assignment.  
